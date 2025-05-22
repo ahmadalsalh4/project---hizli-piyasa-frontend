@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda | Hızlı Piyasa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark-color);
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 50px;
+        }
+        
+        .hero-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-section {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .about-text {
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .mission-vision {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .mission-card, .vision-card {
+            flex: 1;
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 30px;
+        }
+        
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .stats-section {
+            background-color: white;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 80px;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--gray-color);
+            font-size: 16px;
+        }
+        
+        .team-section {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 25px;
+        }
+        
+        .member-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .member-position {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #f5f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .cta-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .btn-transparent {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: #ccc;
+        }
+        
+        .copyright {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 992px) {
+            .about-section {
+                flex-direction: column;
+            }
+            
+            .mission-vision {
+                flex-direction: column;
+            }
+            
+            .stats-grid, .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .stats-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-transparent {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                Hızlı Piyasa
+            </div>
+            <div class="auth-buttons">
+                <a href="index.html" class="login">Ana Sayfa</a>
+                <a href="search.html" class="register">Ürün Ara</a>
+                <a href="post-ad.html" class="register">İlan Ver</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero-section">
+            <h1 class="hero-title">Hızlı Piyasa'yı Keşfedin</h1>
+            <p class="hero-subtitle">
+                Türkiye'nin en güvenilir ikinci el alışveriş platformunda yerinizi alın. 
+                Binlerce kullanıcıya güvenli ve hızlı alışveriş deneyimi sunuyoruz.
+            </p>
+            <a href="register.html" class="btn">Hemen Üye Ol</a>
+        </section>
+        
+        <section class="about-section">
+            <div class="about-image">
+                <img src="https://via.placeholder.com/600x400?text=Hızlı+Piyasa+Ekibi" alt="Hızlı Piyasa Ekibi">
+            </div>
+            <div class="about-content">
+                <h2 class="section-title">Hikayemiz</h2>
+                <p class="about-text">
+                    Hızlı Piyasa, 2018 yılında İstanbul'da kuruldu. Amacımız, insanların ikinci el ürünlerini 
+                    güvenli bir şekilde alıp satabilecekleri modern bir platform oluşturmaktı. Bugün, 
+                    Türkiye'nin dört bir yanından milyonlarca kullanıcıya hizmet veriyoruz.
+                </p>
+                <p class="about-text">
+                    Ekibimiz, teknoloji ve e-ticaret alanında uzmanlaşmış genç ve dinamik profesyonellerden 
+                    oluşuyor. Kullanıcı deneyimini sürekli iyileştirmek için çalışıyor ve platformumuzu 
+                    her geçen gün daha iyi hale getiriyoruz.
+                </p>
+                <p class="about-text">
+                    Güvenli alışveriş ilkesiyle hareket ediyor, kullanıcılarımızın memnuniyetini her şeyin 
+                    üzerinde tutuyoruz.
+                </p>
+            </div>
+        </section>
+        
+        <section class="mission-vision">
+            <div class="mission-card">
+                <div class="card-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="card-title">Misyonumuz</h3>
+                <p class="about-text">
+                    İkinci el eşya alışverişini güvenli, kolay ve hızlı hale getirerek 
+                    sürdürülebilir tüketimi teşvik etmek. Kullanıcılarımıza en iyi deneyimi 
+                    sunarken, çevre dostu bir alışveriş kültürü oluşturmayı hedefliyoruz.
+                </p>
+            </div>
+            <div class="vision-card">
+                <div class="card-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 class="card-title">Vizyonumuz</h3>
+                <p class="about-text">
+                    Türkiye'nin en büyük ikinci el pazar yeri olmak ve global ölçekte 
+                    hizmet veren bir marka haline gelmek. Teknolojinin gücünü kullanarak 
+                    alıcı ve satıcıları en verimli şekilde bir araya getiren bir platform 
+                    yaratmayı amaçlıyoruz.
+                </p>
+            </div>
+        </section>
+        
+        <section class="stats-section">
+            <h2 class="section-title">Hızlı Piyasa Rakamlarla</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1.5M+</div>
+                    <div class="stat-label">Mutlu Kullanıcı</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500K+</div>
+                    <div class="stat-label">Aktif İlan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Memnuniyet Oranı</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">81</div>
+                    <div class="stat-label">Şehirde Hizmet</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="team-section">
+            <h2 class="section-title">Takımımız</h2>
+            <p class="about-text" style="max-width: 700px; margin: 0 auto;">
+                Hızlı Piyasa'nın arkasındaki yetenekli ve deneyimli ekibimizle tanışın. 
+                Her birimiz farklı alanlarda uzmanlaşmış olsak da ortak hedefimiz 
+                kullanıcılarımıza en iyi deneyimi sunmak.
+            </p>
+            
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://via.placeholder.com/400x400?text=Mehmet+K." alt="Mehmet Kaya">
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Mehmet Kaya</h4>
+                        <p class="member-position">Kurucu & CEO</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://via.placeholder.com/400x400?text=Ayşe+T." alt="Ayşe Tekin">
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Ayşe Tekin</h4>
+                        <p class="member-position">CTO</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://via.placeholder.com/400x400?text=Deniz+A." alt="Deniz Arslan">
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Deniz Arslan</h4>
+                        <p class="member-position">Pazarlama Müdürü</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://via.placeholder.com/400x400?text=Can+Ş." alt="Can Şahin">
+                    </div>
+                    <div class="member-info">
+                        <h4 class="member-name">Can Şahin</h4>
+                        <p class="member-position">Kullanıcı Deneyimi Lideri</p>
+                        <div class="member-social">
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta-section">
+            <h2 class="cta-title">Hızlı Piyasa'ya Katılın</h2>
+            <p class="cta-text">
+                Siz de Türkiye'nin en güvenilir ikinci el alışveriş platformunda yerinizi alın. 
+                Binlerce kullanıcının arasına katılın ve güvenli alışverişin keyfini çıkarın.
+            </p>
+            <a href="register.html" class="btn btn-white">Hemen Üye Ol</a>
+            <a href="contact.html" class="btn btn-transparent">İletişime Geç</a>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-bolt"></i>
+                Hızlı Piyasa
+            </div>
+            <div class="footer-links">
+                <a href="about.html" class="footer-link">Hakkımızda</a>
+                <a href="contact.html" class="footer-link">İletişim</a>
+                <a href="privacy.html" class="footer-link">Gizlilik Politikası</a>
+                <a href="terms.html" class="footer-link">Kullanım Şartları</a>
+                <a href="blog.html" class="footer-link">Blog</a>
+            </div>
+            <p class="copyright">© 2023 Hızlı Piyasa. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+</body>
+</html>

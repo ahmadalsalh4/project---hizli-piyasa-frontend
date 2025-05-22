@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hızlı Piyasa - Ürün Ara</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .auth-buttons a {
+            margin-left: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .auth-buttons .login {
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .auth-buttons .register {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .search-container {
+            padding: 20px 5%;
+            background-color: white;
+        }
+        
+        .search-main {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .filters {
+            width: 280px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+        }
+        
+        .filter-section {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+        
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .filter-title i {
+            transition: transform 0.3s;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-option input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .price-range {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .price-range input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .date-filter {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .date-filter select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .search-results {
+            flex: 1;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .results-count {
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .sort-options select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .ad-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+        
+        .ad-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .ad-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .ad-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .ad-card:hover .ad-image img {
+            transform: scale(1.05);
+        }
+        
+        .ad-details {
+            padding: 15px;
+        }
+        
+        .ad-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .ad-location {
+            color: var(--gray-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ad-location i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        .ad-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .ad-date {
+            font-size: 12px;
+            color: var(--gray-color);
+            margin-top: 5px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .pagination a {
+            padding: 8px 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--dark-color);
+            transition: all 0.3s;
+        }
+        
+        .pagination a.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .pagination a:hover:not(.active) {
+            background-color: #f1f1f1;
+        }
+        
+        @media (max-width: 992px) {
+            .search-main {
+                flex-direction: column;
+            }
+            
+            .filters {
+                width: 100%;
+            }
+            
+            .ads-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .auth-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .auth-buttons a {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                Hızlı Piyasa
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="login">Giriş Yap</a>
+                <a href="register.html" class="register">Kayıt Ol</a>
+                <a href="post-ad.html" class="register">İlan Ver</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="search-container">
+        <div class="search-main">
+            <div class="filters">
+                <div class="filter-section">
+                    <div class="filter-title">
+                        Kategoriler
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-electronics">
+                            <label for="cat-electronics">Elektronik</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-fashion">
+                            <label for="cat-fashion">Moda</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-home">
+                            <label for="cat-home">Ev, Bahçe</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-vehicle">
+                            <label for="cat-vehicle">Araç</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="cat-property">
+                            <label for="cat-property">Emlak</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-title">
+                        Fiyat Aralığı
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="price-range">
+                        <input type="number" placeholder="Min TL">
+                        <input type="number" placeholder="Max TL">
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-title">
+                        Konum
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="loc-istanbul">
+                            <label for="loc-istanbul">İstanbul</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="loc-ankara">
+                            <label for="loc-ankara">Ankara</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="loc-izmir">
+                            <label for="loc-izmir">İzmir</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="loc-bursa">
+                            <label for="loc-bursa">Bursa</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-title">
+                        İlan Tarihi
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="date-filter">
+                        <select>
+                            <option value="">Tüm ilanlar</option>
+                            <option value="today">Bugün</option>
+                            <option value="week">Bu hafta</option>
+                            <option value="month">Bu ay</option>
+                            <option value="3month">Son 3 ay</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button style="width: 100%; padding: 12px; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); color: white; border: none; border-radius: 5px; font-weight: 600; cursor: pointer;">
+                    Filtreleri Uygula
+                </button>
+            </div>
+            
+            <div class="search-results">
+                <div class="results-header">
+                    <div class="results-count">1,245 ilan bulundu</div>
+                    <div class="sort-options">
+                        <select>
+                            <option value="newest">En yeni ilanlar</option>
+                            <option value="oldest">En eski ilanlar</option>
+                            <option value="price-low">Fiyat (Düşükten yükseğe)</option>
+                            <option value="price-high">Fiyat (Yüksekten düşüğe)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="ads-grid">
+                    <!-- Ad Card 1 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=iPhone+13" alt="iPhone 13">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">iPhone 13 256GB</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                İstanbul, Kadıköy
+                            </div>
+                            <div class="ad-price">18.500 TL</div>
+                            <div class="ad-date">2 gün önce</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ad Card 2 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=Samsung+S22" alt="Samsung S22">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">Samsung Galaxy S22</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Ankara, Çankaya
+                            </div>
+                            <div class="ad-price">15.999 TL</div>
+                            <div class="ad-date">1 hafta önce</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ad Card 3 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=Macbook+Air" alt="Macbook Air">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">Macbook Air M1</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                İzmir, Karşıyaka
+                            </div>
+                            <div class="ad-price">16.750 TL</div>
+                            <div class="ad-date">3 gün önce</div>
+                        </div>
+                    </div>
+                    
+                   
+                   
+                    
+                    <!-- Ad Card 6 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=LG+TV" alt="LG TV">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">LG 55" 4K Smart TV</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Eskişehir, Tepebaşı
+                            </div>
+                            <div class="ad-price">7.500 TL</div>
+                            <div class="ad-date">2 hafta önce</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

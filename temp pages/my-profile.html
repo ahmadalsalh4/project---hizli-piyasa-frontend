@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Profili | Hızlı Piyasa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .profile-sidebar {
+            width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            height: fit-content;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #f1f3ff;
+            margin: 0 auto 15px;
+        }
+        
+        .profile-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .profile-location {
+            color: var(--gray-color);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .profile-location i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--gray-color);
+        }
+        
+        .profile-menu {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .profile-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .profile-menu a {
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--dark-color);
+            transition: all 0.3s;
+        }
+        
+        .profile-menu a:hover, .profile-menu a.active {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .profile-menu i {
+            width: 20px;
+            margin-right: 10px;
+            text-align: center;
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff0f0;
+            color: #ff3333;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .logout-btn:hover {
+            background-color: #ffdddd;
+        }
+        
+        .profile-content {
+            flex: 1;
+        }
+        
+        .profile-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .edit-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .about-text {
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+        
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .ad-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+        
+        .ad-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .ad-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .ad-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .ad-card:hover .ad-image img {
+            transform: scale(1.05);
+        }
+        
+        .ad-details {
+            padding: 15px;
+        }
+        
+        .ad-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .ad-location {
+            color: var(--gray-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ad-location i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        .ad-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .ad-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background-color: #e6f7ee;
+            color: #00a651;
+        }
+        
+        .status-sold {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-color);
+        }
+        
+        .empty-state i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .profile-sidebar {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            .ads-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                Hızlı Piyasa
+            </div>
+            <div class="auth-buttons">
+                <a href="index.html" class="login">Ana Sayfa</a>
+                <a href="search.html" class="register">Ürün Ara</a>
+                <a href="post-ad.html" class="register">İlan Ver</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="profile-sidebar">
+            <div class="profile-header">
+                <img src="https://via.placeholder.com/150?text=Kullanıcı" alt="Profil Resmi" class="profile-pic">
+                <h3 class="profile-name">Ahmet Yılmaz</h3>
+                <div class="profile-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    İstanbul, Kadıköy
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">İlan</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Takipçi</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">Puan</div>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="profile-menu">
+                <li><a href="#" class="active"><i class="fas fa-user"></i> Profil Bilgileri</a></li>
+                <li><a href="#"><i class="fas fa-list"></i> İlanlarım</a></li>
+                <li><a href="#"><i class="fas fa-heart"></i> Favoriler</a></li>
+                <li><a href="#"><i class="fas fa-comment"></i> Mesajlar</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Ayarlar</a></li>
+            </ul>
+            
+            <a href="#" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-section">
+                <h2 class="section-title">
+                    Profil Bilgileri
+                    <button class="edit-btn"><i class="fas fa-edit"></i> Düzenle</button>
+                </h2>
+                <div class="about-text">
+                    <p><strong>Ad Soyad:</strong> Ahmet Yılmaz</p>
+                    <p><strong>E-posta:</strong> ahmet.yilmaz@example.com</p>
+                    <p><strong>Telefon:</strong> (555) 123 45 67</p>
+                    <p><strong>Konum:</strong> İstanbul, Kadıköy</p>
+                    <p><strong>Kayıt Tarihi:</strong> 15 Mart 2022</p>
+                    <p><strong>Hakkımda:</strong> 2 yıldır Hızlı Piyasa'da aktif olarak alışveriş yapıyorum. Genellikle elektronik ürünler satıyorum ve alıyorum. Ürünlerim orijinal ve temiz durumdadır.</p>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h2 class="section-title">Son İlanlarım</h2>
+                <div class="ads-grid">
+                    <!-- Ad Card 1 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=iPhone+13" alt="iPhone 13">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">iPhone 13 256GB</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                İstanbul, Kadıköy
+                            </div>
+                            <div class="ad-price">18.500 TL</div>
+                            <div class="ad-status status-active">Satışta</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ad Card 2 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=Macbook+Pro" alt="Macbook Pro">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">Macbook Pro M1</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                İstanbul, Kadıköy
+                            </div>
+                            <div class="ad-price">22.000 TL</div>
+                            <div class="ad-status status-active">Satışta</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ad Card 3 -->
+                    <div class="ad-card">
+                        <div class="ad-image">
+                            <img src="https://via.placeholder.com/300x200?text=Samsung+TV" alt="Samsung TV">
+                        </div>
+                        <div class="ad-details">
+                            <h3 class="ad-title">Samsung 55" Smart TV</h3>
+                            <div class="ad-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                İstanbul, Kadıköy
+                            </div>
+                            <div class="ad-price">8.500 TL</div>
+                            <div class="ad-status status-sold">Satıldı</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="see-more" style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">Tüm İlanlarımı Görüntüle</a>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <h2 class="section-title">Değerlendirmeler</h2>
+                <div class="empty-state">
+                    <i class="fas fa-comment-alt"></i>
+                    <h3>Henüz değerlendirme yok</h3>
+                    <p>Bu kullanıcı henüz hiç değerlendirilmemiş.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

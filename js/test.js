@@ -50,3 +50,5 @@ console.log(token);
   }
   console.log(data);
 }
+//http://localhost:5000/ads?category=electronics&city=New+York&minPrice=100&maxPrice=1000
+// &startDate=2023-01-01&search=laptop&sortBy=price&sortOrder=ASC
