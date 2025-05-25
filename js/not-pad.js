@@ -1,4 +1,3 @@
-
 /*
 <i class="fa-solid fa-money-bill-trend-up"></i>
 
@@ -9,7 +8,6 @@
 <a href="/" class="logo">MyWebsite</a>
 
 ara wp
-
 
                     <div class="product-card">
                         <div class="product-image">
@@ -27,5 +25,9 @@ ara wp
                             </div>
                         </div>
                     </div>
+
+
+//http://localhost:5000/ads?category=electronics&city=New+York&minPrice=100&maxPrice=1000
+// &startDate=2023-01-01&search=laptop&sortBy=price&sortOrder=ASC
 
 */
