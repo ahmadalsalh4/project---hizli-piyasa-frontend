@@ -336,7 +336,17 @@
                 <a href="post-ad.html" class="register">İlan Ver</a>
             </div>
         </div>
+
+        <div class="search-bar">
+            <div class="search-container">
+                <input type="text" placeholder="Ne aramıştınız? Örneğin: iPhone 12">
+                <button><i class="fas fa-search"></i> Ara</button>
+            </div>
+        </div>
+
     </header>
+
+    
     
     <div class="search-container">
         <div class="search-main">
@@ -414,10 +424,10 @@
                     <div class="date-filter">
                         <select>
                             <option value="">Tüm ilanlar</option>
-                            <option value="today">Bugün</option>
+                            <option value="today">son 24 saat</option>
+                            <option value="today">son 3 gün</option>
                             <option value="week">Bu hafta</option>
                             <option value="month">Bu ay</option>
-                            <option value="3month">Son 3 ay</option>
                         </select>
                     </div>
                 </div>
@@ -429,13 +439,15 @@
             
             <div class="search-results">
                 <div class="results-header">
-                    <div class="results-count">1,245 ilan bulundu</div>
+                    <div class="results-count"><h3 style="color: #212529;">1,245 ilan bulundu</h3></div>
                     <div class="sort-options">
                         <select>
                             <option value="newest">En yeni ilanlar</option>
                             <option value="oldest">En eski ilanlar</option>
                             <option value="price-low">Fiyat (Düşükten yükseğe)</option>
                             <option value="price-high">Fiyat (Yüksekten düşüğe)</option>
+                            <option value="price-low">A-Z</option>
+                            <option value="price-high">Z-A</option>
                         </select>
                     </div>
                 </div>
@@ -507,15 +519,6 @@
                             <div class="ad-date">2 hafta önce</div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="pagination">
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#"><i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
         </div>
