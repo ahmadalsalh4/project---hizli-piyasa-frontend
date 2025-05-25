@@ -30,24 +30,35 @@
             </form>
         </div>
     </div>
-</body>
 
     <script>
-        // Form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Add your login validation and submission logic here
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
-            // Basic validation example
-            if(email && password) {
-                alert('Giriş başarılı! Yönlendiriliyorsunuz...');
-                // window.location.href = "dashboard.html";
-            } else {
-                alert('Lütfen tüm alanları doldurun!');
+
+            try {
+                const response = await fetch('http://localhost:5000/authenticat/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error);  
+                }
+                
+                localStorage.setItem('authToken', result.token);
+                //window.location.href = "../temp pages/index.html";
+                window.location.href = "t1.html";
+                
+            } catch (error) {
+                alert(error);
             }
         });
     </script>
+</body>
 </html>
