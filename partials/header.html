@@ -1,26 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Home</title>
-  <style>
-    #authButtons { margin: 20px; }
-    #profileButton { display: none; }
-    #loginButton { display: none; }
-    #profileImg { 
-      width: 40px; 
-      height: 40px; 
-      border-radius: 50%; 
-      margin-left: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div id="authButtons">
-    <button id="profileButton">Profile</button>
-    <img id="profileImg" src="" alt="Profile">
-    <button id="loginButton">Login</button>
-  </div>
+<link rel="stylesheet" href="../css/header.css">
+<header>
+        <div class="top-bar">
+            <div class="logo">
+                <i class="fas fa-money-bill-wave"></i>
+                Hızlı Piyasa
+            </div>
+            
+            <!-- Logged out state -->
+            <div class="auth-container" id="loggedOutButtons">
+                <a href="../pages/login.html" class="btn btn-primary">Giriş Yap</a>
+                <a href="../pages/register.html" class="btn btn-primary">Kayıt Ol</a>
+                <a href="../pages/post-ad.html" class="btn btn-primary">İlan Ver</a>
+            </div>
+            
+            <!-- Logged in state -->
+            <div class="user-menu" id="loggedInMenu" style="display: none;">
+                <a href="../pages/post-ad.html" class="btn btn-primary">ilan ver</a>
+                <div class="profile">
+                    <div class="profile-pic" id="profileImg"></div>
 
-  <script src="auth.js"></script>
-</body>
-</html>
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="userName" class="dropdown-username"></span>
+                        </div>
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profilim
+                        </a>
+                        <button class="dropdown-item" id="logoutButton">
+                            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            console.log("aaresponse")
+        </script>
+
+        <script type="module">
+            import {UpdateProfileState} from '../js/header.js'
+            import {LogOut} from '../js/util.js'
+            
+            document.addEventListener('DOMContentLoaded', () =>{
+            UpdateProfileState();});
+
+            document.getElementById("logoutButton").addEventListener('click',()=>{
+               LogOut()}); 
+        </script>
+</header>

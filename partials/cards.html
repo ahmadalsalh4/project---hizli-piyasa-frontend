@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hızlı Piyasa - İkinci El Alışveriş</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         :root {
             --primary-color: #4361ee;
@@ -278,12 +278,23 @@
             font-size: 12px;
         }
         
-        .ad-price {
-            font-weight: 700;
-            color: var(--primary-color);
-            font-size: 18px;
-            margin-top: 10px;
-        }
+        .ad-price-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ad-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.ad-date {
+    color: var(--gray-color);
+    font-size: 14px;
+}
         
         .see-more {
             text-align: center;
@@ -472,97 +483,16 @@
         </div>
         <h2 class="section-title">Son Eklenen İlanlar</h2>
         
-        <div class="ads-grid">
-            <!-- Ad Card 1 -->
-            <div class="ad-card">
-                <div class="ad-image">
-                    <img src="https://via.placeholder.com/300x200?text=iPhone+12" alt="iPhone 12">
-                </div>
-                <div class="ad-details">
-                    <h3 class="ad-title">iPhone 12 128GB</h3>
-                    <div class="ad-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        İstanbul, Kadıköy
-                    </div>
-                    <div class="ad-price">12.500 TL</div>
-                </div>
-            </div>
-            
-            <!-- Ad Card 2 -->
-            <div class="ad-card">
-                <div class="ad-image">
-                    <img src="https://via.placeholder.com/300x200?text=Samsung+TV" alt="Samsung TV">
-                </div>
-                <div class="ad-details">
-                    <h3 class="ad-title">Samsung 55" Smart TV</h3>
-                    <div class="ad-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Ankara, Çankaya
-                    </div>
-                    <div class="ad-price">8.999 TL</div>
-                </div>
-            </div>
-            
-            <!-- Ad Card 3 -->
-            <div class="ad-card">
-                <div class="ad-image">
-                    <img src="https://via.placeholder.com/300x200?text=Macbook+Pro" alt="Macbook Pro">
-                </div>
-                <div class="ad-details">
-                    <h3 class="ad-title">Macbook Pro M1 2020</h3>
-                    <div class="ad-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        İzmir, Karşıyaka
-                    </div>
-                    <div class="ad-price">18.750 TL</div>
-                </div>
-            </div>
-            
-            <!-- Ad Card 4 -->
-            <div class="ad-card">
-                <div class="ad-image">
-                    <img src="https://via.placeholder.com/300x200?text=Nike+Ayakkabı" alt="Nike Ayakkabı">
-                </div>
-                <div class="ad-details">
-                    <h3 class="ad-title">Nike Air Max 270</h3>
-                    <div class="ad-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Bursa, Nilüfer
-                    </div>
-                    <div class="ad-price">2.400 TL</div>
-                </div>
-            </div>
-            
-            <!-- Ad Card 5 -->
-            <div class="ad-card">
-                <div class="ad-image">
-                    <img src="https://via.placeholder.com/300x200?text=Koltuk+Takımı" alt="Koltuk Takımı">
-                </div>
-                <div class="ad-details">
-                    <h3 class="ad-title">Yeni Koltuk Takımı</h3>
-                    <div class="ad-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Antalya, Muratpaşa
-                    </div>
-                    <div class="ad-price">5.500 TL</div>
-                </div>
-            </div>
-            
-            <!-- Ad Card 6 -->
-            <div class="ad-card">
-                <div class="ad-image">
-                    <img src="https://via.placeholder.com/300x200?text=PlayStation+5" alt="PlayStation 5">
-                </div>
-                <div class="ad-details">
-                    <h3 class="ad-title">PlayStation 5</h3>
-                    <div class="ad-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        Eskişehir, Tepebaşı
-                    </div>
-                    <div class="ad-price">15.000 TL</div>
-                </div>
-            </div>
-        </div>
+        <div id="ads-grid" class="ads-grid"></div>
+
     </div>
+
+  
+    <script type="module">
+        import { loadProductsTo } from '../js/GetAllProducts.js';
+        document.addEventListener('DOMContentLoaded', () =>{
+            loadProductsTo('ads-grid','http://localhost:5000/ads');});
+    </script>
+
 </body>
 </html>

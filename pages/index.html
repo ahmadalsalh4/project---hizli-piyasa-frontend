@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hızlı Piyasa - İkinci El Alışveriş</title>
+    <!-- Preload header CSS to avoid FOUC -->
+    <link rel="preload" href="../css/header.css" as="style">
+    <link rel="stylesheet" href="../css/header.css">
+</head>
+<body>
+<div id="header-container"></div>
+
+<script>
+async function loadHeader() {
+    try {
+        // Fetch the header HTML
+        const response = await fetch('../partials/header.html');
+        if (!response.ok) throw new Error('Header load failed');
+        const html = await response.text();
+        
+        // Inject the HTML
+        const container = document.getElementById('header-container');
+        container.innerHTML = html;
+        
+        // Process all scripts in order
+        const scripts = container.querySelectorAll('script');
+        const scriptPromises = [];
+        
+        for (const script of scripts) {
+            const newScript = document.createElement('script');
+            
+            // Copy all attributes
+            Array.from(script.attributes).forEach(attr => {
+                newScript.setAttribute(attr.name, attr.value);
+            });
+            
+            // Handle different script types
+            if (script.src) {
+                // External script - load with promise
+                const promise = new Promise((resolve) => {
+                    newScript.onload = resolve;
+                    newScript.onerror = resolve; // Don't stop execution if one fails
+                });
+                scriptPromises.push(promise);
+                
+                // Fix relative paths
+                newScript.src = new URL(script.src, new URL(import.meta.url)).href;
+            } else {
+                // Inline script - preserve content
+                newScript.textContent = script.textContent;
+            }
+            
+            // Add to body and remove original
+            document.body.appendChild(newScript);
+            script.remove();
+        }
+        
+        // Wait for all scripts to load
+        await Promise.all(scriptPromises);
+        
+        // Dispatch custom event for any components that need it
+        window.dispatchEvent(new CustomEvent('header-loaded'));
+        
+    } catch (error) {
+        console.error('Header loading error:', error);
+        // Fallback: Show basic navigation or error message
+        document.getElementById('header-container').innerHTML = `
+            <div style="padding: 1rem; background: #f0f0f0;">
+                <a href="/">Home</a> | 
+                <a href="../pages/login.html">Login</a> | 
+                <a href="../pages/register.html">Register</a>
+            </div>
+        `;
+    }
+}
+
+// Load header when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadHeader);
+} else {
+    loadHeader();
+}
+</script>
+</body>
+</html>
