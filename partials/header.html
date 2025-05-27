@@ -1,16 +1,16 @@
 <link rel="stylesheet" href="../css/header.css">
-<header>
+<div>
         <div class="top-bar">
-            <div class="logo">
-                <i class="fas fa-money-bill-wave"></i>
-                Hızlı Piyasa
+            <div class="logo-button" onclick="window.location.href='index.html'">
+                <i class="fas fa-money-bill-wave"></i>Hızlı Piyasa
             </div>
+            
             
             <!-- Logged out state -->
             <div class="auth-container" id="loggedOutButtons">
                 <a href="../pages/login.html" class="btn btn-primary">Giriş Yap</a>
                 <a href="../pages/register.html" class="btn btn-primary">Kayıt Ol</a>
-                <a href="../pages/post-ad.html" class="btn btn-primary">İlan Ver</a>
+                <a href="../pages/post-ad.html" class="btn btn-primary"> Hemen İlan Ver</a>
             </div>
             
             <!-- Logged in state -->
@@ -34,19 +34,4 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            console.log("aaresponse")
-        </script>
-
-        <script type="module">
-            import {UpdateProfileState} from '../js/header.js'
-            import {LogOut} from '../js/util.js'
-            
-            document.addEventListener('DOMContentLoaded', () =>{
-            UpdateProfileState();});
-
-            document.getElementById("logoutButton").addEventListener('click',()=>{
-               LogOut()}); 
-        </script>
-</header>
+</div>

@@ -14,13 +14,33 @@ export async function LoadHeader(id){
     document.getElementById(id).innerHTML = html;
 }
 
+export async function LoadSearch(id){
+    const response = await fetch('../partials/search.html');
+    const html = await response.text();
+    document.getElementById(id).innerHTML = html;
+}
+
 export async function LoadBanner(id){
     const response = await fetch('../partials/banner.html');
     const html = await response.text();
     document.getElementById(id).innerHTML = html;
 }
 
+export async function LoadCategories(id){
+    const response = await fetch('../partials/categories.html');
+    const html = await response.text();
+    document.getElementById(id).innerHTML = html;
+}
+
+export async function LoadFooter(id){
+    const response = await fetch('../partials/footer.html');
+    const html = await response.text();
+    document.getElementById(id).innerHTML = html;
+}
+
 export function LogOut(){
     localStorage.clear();
-    window.location.href = '../partials/header.html'
+    setTimeout(() => {
+        window.location.href = './index.html';
+    }, 300);
 }

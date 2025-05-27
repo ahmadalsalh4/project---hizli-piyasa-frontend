@@ -1,12 +1,9 @@
 import { GetUserDate } from "./UserDate.js";
-console.log("response")
 export async function UpdateProfileState(){
-    console.log("response")
     const loggedOutButtons = document.getElementById("loggedOutButtons");
     const loggedInMenu = document.getElementById("loggedInMenu");
     const userName = document.getElementById("userName");
     const profileImg = document.getElementById("profileImg");
-    console.log("response")
     const Data = await GetUserDate();
     if(Data)
     {
