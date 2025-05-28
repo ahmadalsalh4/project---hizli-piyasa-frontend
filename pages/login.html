@@ -44,18 +44,12 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password }),
                 });
-
                 const result = await response.json();
-                console.log(response);
-
                 if (!response.ok) {
                     throw new Error(result.error);  
                 }
-                
                 localStorage.setItem('authToken', result.token);
-                //window.location.href = "../temp pages/index.html";
                 window.location.href = "./index.html";
-                
             } catch (error) {
                 alert(error);
             }
