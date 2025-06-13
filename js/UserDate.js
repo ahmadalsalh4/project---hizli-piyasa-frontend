@@ -1,7 +1,7 @@
 export async function GetUserDate() {
   const token = localStorage.getItem("authToken");
   if (token) {
-    const response = await fetch("http://localhost:5000/me", {
+    const response = await fetch("http://localhost:5000/api/me", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
