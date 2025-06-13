@@ -22,23 +22,16 @@
 body {
   background-color: #f5f7ff;
 }
-
 .profile-header {
   max-width: 1200px;
   margin: 30px auto;
-  padding: 0 20px;
+  padding: 20px 30px;
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--card-shadow);
-  padding: 30px;
-  margin-bottom: 30px;
   display: flex;
   align-items: center;
   gap: 30px;
-}
-
-.profile-pic-container {
-  position: relative;
 }
 
 .profile-pic {
@@ -57,16 +50,12 @@ body {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.profile-details {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-top: 20px;
+.profile-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .detail-item {
@@ -80,10 +69,11 @@ body {
   margin-right: 10px;
 }
 
-.profile-actions {
+.profile-actions-vertical {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  margin-top: 20px;
+  align-self: center;
 }
 
 .edit-btn,
@@ -93,6 +83,8 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s;
+  text-align: center;
+  width: 100%;
 }
 
 .edit-btn {
@@ -115,6 +107,8 @@ body {
 .logout-btn:hover {
   background-color: #ffdddd;
 }
+
+
 
 .ads-section {
   max-width: 1200px;
@@ -296,17 +290,24 @@ body {
     margin-bottom: 15px;
   }
 
+  @media (max-width: 768px) {
   .profile-header {
     flex-direction: column;
     text-align: center;
   }
+  
+  .profile-actions-vertical {
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .detail-item {
+    justify-content: center;
+  }
+}
 
   .profile-details {
     grid-template-columns: 1fr;
-  }
-
-  .profile-actions {
-    justify-content: center;
   }
 
   .status-tabs {

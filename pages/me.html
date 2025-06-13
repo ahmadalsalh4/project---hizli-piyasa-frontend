@@ -14,17 +14,14 @@
     <div class="profile-header">
       <div class="profile-pic-container">
         <img
-          src="https://via.placeholder.com/150?text=Ahmet+Yılmaz"
+          src="https://i.ibb.co/s9XWFk7S/file.jpg"
           alt="Profil Resmi"
           class="profile-pic"
         />
       </div>
       <div class="profile-info">
-        <div class="profile-name">
-          <span>Ahmet Yılmaz</span>
-        </div>
-
-        <div class="profile-details">
+        <div class="profile-name">Ahmet Yılmaz</div>
+        <div class="profile-contact">
           <div class="detail-item">
             <i class="fas fa-envelope"></i>
             <span>ahmet.yilmaz@example.com</span>
@@ -34,15 +31,14 @@
             <span>(555) 123 45 67</span>
           </div>
         </div>
-
-        <div class="profile-actions">
-          <button class="edit-btn">
-            <i class="fas fa-edit"></i> Profili Düzenle
-          </button>
-          <a href="#" class="logout-btn"
-            ><i class="fas fa-sign-out-alt"></i> Çıkış Yap</a
-          >
-        </div>
+      </div>
+      <div class="profile-actions-vertical">
+        <button class="edit-btn">
+          <i class="fas fa-edit"></i> Profili Düzenle
+        </button>
+        <a href="#" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+        </a>
       </div>
     </div>
 
@@ -50,22 +46,45 @@
       <h2 class="section-title">İlanlarım (24)</h2>
 
       <div class="status-tabs">
-        <div class="status-tab active">Tümü</div>
-        <div class="status-tab">Aktif</div>
-        <div class="status-tab">Bekleyen</div>
-        <div class="status-tab">Satılan</div>
+        <div class="status-tab active" data-status="all">Tümü</div>
+        <div class="status-tab" data-status="active">Aktif</div>
+        <div class="status-tab" data-status="pending">Bekleyen</div>
+        <div class="status-tab" data-status="sold">Satılan</div>
       </div>
 
       <div class="ads-grid">
         <!-- Ad Card 1 -->
+        <div class="ad-card">
+          <div class="ad-image">
+            <img src="https://i.ibb.co/s9XWFk7S/file.jpg" alt="Macbook Pro" />
+            <div class="ad-status status-active">Aktif</div>
+            <div class="ad-actions">
+              <div class="action-btn" title="Düzenle">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-btn" title="Sil">
+                <i class="fas fa-trash"></i>
+              </div>
+            </div>
+          </div>
+          <div class="ad-details">
+            <h3 class="ad-title">Macbook Pro M1 2020</h3>
+            <div class="ad-location">
+              <i class="fas fa-map-marker-alt"></i>
+              İstanbul, Kadıköy
+            </div>
+            <div class="ad-price">18.750 TL</div>
+            <div class="ad-meta">
+              <span><i class="far fa-eye"></i> 189 görüntülenme</span>
+              <span>1 hafta önce</span>
+            </div>
+          </div>
+        </div>
 
         <!-- Ad Card 2 -->
         <div class="ad-card">
           <div class="ad-image">
-            <img
-              src="https://via.placeholder.com/400x300?text=Macbook+Pro"
-              alt="Macbook Pro"
-            />
+            <img src="https://i.ibb.co/s9XWFk7S/file.jpg" alt="Macbook Pro" />
             <div class="ad-status status-active">Aktif</div>
             <div class="ad-actions">
               <div class="action-btn" title="Düzenle">
@@ -93,10 +112,7 @@
         <!-- Ad Card 3 -->
         <div class="ad-card">
           <div class="ad-image">
-            <img
-              src="https://via.placeholder.com/400x300?text=Samsung+TV"
-              alt="Samsung TV"
-            />
+            <img src="https://i.ibb.co/s9XWFk7S/file.jpg" alt="Samsung TV" />
             <div class="ad-status status-sold">Satıldı</div>
             <div class="ad-actions">
               <div class="action-btn" title="Tekrar Yayınla">
@@ -125,7 +141,7 @@
         <div class="ad-card">
           <div class="ad-image">
             <img
-              src="https://via.placeholder.com/400x300?text=Nike+Air+Jordan"
+              src="https://i.ibb.co/s9XWFk7S/file.jpg"
               alt="Nike Air Jordan"
             />
             <div class="ad-status status-pending">Bekleyen</div>
@@ -151,6 +167,34 @@
             </div>
           </div>
         </div>
+
+        <!-- Ad Card 5 -->
+        <div class="ad-card">
+          <div class="ad-image">
+            <img src="https://i.ibb.co/s9XWFk7S/file.jpg" alt="Macbook Pro" />
+            <div class="ad-status status-active">Bekleyen</div>
+            <div class="ad-actions">
+              <div class="action-btn" title="Düzenle">
+                <i class="fas fa-edit"></i>
+              </div>
+              <div class="action-btn" title="Sil">
+                <i class="fas fa-trash"></i>
+              </div>
+            </div>
+          </div>
+          <div class="ad-details">
+            <h3 class="ad-title">Macbook Pro M1 2020</h3>
+            <div class="ad-location">
+              <i class="fas fa-map-marker-alt"></i>
+              İstanbul, Kadıköy
+            </div>
+            <div class="ad-price">18.750 TL</div>
+            <div class="ad-meta">
+              <span><i class="far fa-eye"></i> 189 görüntülenme</span>
+              <span>1 hafta önce</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -166,12 +210,48 @@
         await LoadHeader("header");
         await UpdateProfileState("header");
         await LoadFooter("footer");
+
+        // Add filtering functionality
+        setupStatusFiltering();
       });
+
       document.addEventListener("click", (e) => {
         if (e.target.id == "logoutButton") {
           LogOut();
         }
       });
+
+      function setupStatusFiltering() {
+        const tabs = document.querySelectorAll(".status-tab");
+        const adCards = document.querySelectorAll(".ad-card");
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            // Update active tab
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            const status = tab.dataset.status;
+
+            // Filter ad cards
+            adCards.forEach((card) => {
+              const cardStatus = card.querySelector(".ad-status").classList;
+
+              if (
+                status === "all" ||
+                (status === "active" && cardStatus.contains("status-active")) ||
+                (status === "pending" &&
+                  cardStatus.contains("status-pending")) ||
+                (status === "sold" && cardStatus.contains("status-sold"))
+              ) {
+                card.style.display = "block";
+              } else {
+                card.style.display = "none";
+              }
+            });
+          });
+        });
+      }
     </script>
   </body>
 </html>
