@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hızlı Piyasa - İkinci El Alışveriş</title>
-    <link rel="stylesheet" href="../css/index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../css/index.css" />
+  </head>
+  <body>
     <header>
-        <div id="header"></div>
-        <div id="search"></div>
+      <div id="header"></div>
+      <div id="search"></div>
     </header>
 
     <div id="banner"></div>
-    
+
     <div class="recent-ads">
-        <div id="Categories"></div>
-        <h2 class="section-title">Son Eklenen İlanlar</h2>
-        <div class="ads-grid" id="ads-card"></div>
+      <div id="Categories"></div>
+      <h2 class="section-title">Son Eklenen İlanlar</h2>
+      <div class="ads-grid" id="ads-card"></div>
     </div>
 
     <footer>
-        <div id="footer"></div>
+      <div id="footer"></div>
     </footer>
-    
-<script type="module">
-    import {LoadBanner, LoadHeader, LogOut, LoadFooter, LoadSearch, LoadCategories} from '../js/util.js';
-    import { loadProductsTo } from '../js/GetAllProducts.js';
-    import {UpdateProfileState} from '../js/header.js'
 
-    document.addEventListener("DOMContentLoaded",async()=>{
+    <script type="module">
+      import {
+        LoadBanner,
+        LoadHeader,
+        LogOut,
+        LoadFooter,
+        LoadSearch,
+        LoadCategories,
+      } from "../js/util.js";
+      import { loadProductsTo } from "../js/GetAllProducts.js";
+      import { UpdateProfileState } from "../js/header.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
         await LoadHeader("header");
         await UpdateProfileState("header");
         await LoadSearch("search");
         await LoadBanner("banner");
         await LoadCategories("Categories");
-        await loadProductsTo('ads-card','http://localhost:5000/ads')
+        await loadProductsTo("ads-card", "http://localhost:5000/ads");
         await LoadFooter("footer");
-    })
-    document.addEventListener('click', (e) => {
-        if (e.target.id == 'logoutButton') {
-            LogOut();
+      });
+      document.addEventListener("click", (e) => {
+        if (e.target.id == "logoutButton") {
+          LogOut();
         }
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>

@@ -1,37 +1,38 @@
-<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/header.css" />
 <div>
-        <div class="top-bar">
-            <div class="logo-button" onclick="window.location.href='index.html'">
-                <i class="fas fa-money-bill-wave"></i>Hızlı Piyasa
-            </div>
-            
-            
-            <!-- Logged out state -->
-            <div class="auth-container" id="loggedOutButtons">
-                <a href="../pages/login.html" class="btn btn-primary">Giriş Yap</a>
-                <a href="../pages/register.html" class="btn btn-primary">Kayıt Ol</a>
-                <a href="../pages/post-ad.html" class="btn btn-primary"> Hemen İlan Ver</a>
-            </div>
-            
-            <!-- Logged in state -->
-            <div class="user-menu" id="loggedInMenu" style="display: none;">
-                <a href="../pages/post-ad.html" class="btn btn-primary">ilan ver</a>
-                <div class="profile">
-                    <div class="profile-pic" id="profileImg"></div>
+  <div class="top-bar">
+    <div class="logo-button" onclick="window.location.href='index.html'">
+      <i class="fas fa-money-bill-wave"></i>Hızlı Piyasa
+    </div>
 
-                    <div class="dropdown">
-                        <div class="dropdown-header">
-                            <i class="fas fa-user-circle"></i>
-                            <span id="userName" class="dropdown-username"></span>
-                        </div>
-                        <a href="profile.html" class="dropdown-item">
-                            <i class="fas fa-user"></i> Profilim
-                        </a>
-                        <button class="dropdown-item" id="logoutButton">
-                            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <!-- Logged out state -->
+    <div class="auth-container" id="loggedOutButtons">
+      <a href="../pages/login.html" class="btn btn-primary">Giriş Yap</a>
+      <a href="../pages/register.html" class="btn btn-primary">Kayıt Ol</a>
+      <a href="../pages/post-ad.html" class="btn btn-primary">
+        Hemen İlan Ver</a
+      >
+    </div>
+
+    <!-- Logged in state -->
+    <div class="user-menu" id="loggedInMenu" style="display: none">
+      <a href="../pages/post-ad.html" class="btn btn-primary">ilan ver</a>
+      <div class="profile">
+        <div class="profile-pic" id="profileImg"></div>
+
+        <div class="dropdown">
+          <div class="dropdown-header">
+            <i class="fas fa-user-circle"></i>
+            <span id="userName" class="dropdown-username"></span>
+          </div>
+          <a href="profile.html" class="dropdown-item">
+            <i class="fas fa-user"></i> Profilim
+          </a>
+          <button class="dropdown-item" id="logoutButton">
+            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+          </button>
         </div>
+      </div>
+    </div>
+  </div>
 </div>

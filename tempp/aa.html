@@ -1,89 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hızlı Piyasa - İkinci El Alışveriş</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div id="header2"></div>
-        <div class="search-bar">
-            <div class="search-container">
-                <input type="text" placeholder="Ne aramıştınız? Örneğin: iPhone 12">
-                <button><i class="fas fa-search"></i> Ara</button>
-            </div>
+      <div id="header2"></div>
+      <div class="search-bar">
+        <div class="search-container">
+          <input type="text" placeholder="Ne aramıştınız? Örneğin: iPhone 12" />
+          <button><i class="fas fa-search"></i> Ara</button>
         </div>
+      </div>
     </header>
     <div class="banner">
-        <div id="banner"></div>
+      <div id="banner"></div>
     </div>
-    
+
     <div class="recent-ads">
-        <div class="quick-categories">
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <span>Elektronik</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-tshirt"></i>
-                </div>
-                <span>Giyim</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <span>Ev Eşyaları</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-car"></i>
-                </div>
-                <span>Araç</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <span>Kitap</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-baby"></i>
-                </div>
-                <span>Bebek</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <span>Spor</span>
-            </a>
-            <a href="#" class="category">
-                <div class="category-icon">
-                    <i class="fas fa-paw"></i>
-                </div>
-                <span>Evcil Hayvan</span>
-            </a>
-        </div>
+      <div class="quick-categories">
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <span>Elektronik</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-tshirt"></i>
+          </div>
+          <span>Giyim</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <span>Ev Eşyaları</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <span>Araç</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <span>Kitap</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-baby"></i>
+          </div>
+          <span>Bebek</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <span>Spor</span>
+        </a>
+        <a href="#" class="category">
+          <div class="category-icon">
+            <i class="fas fa-paw"></i>
+          </div>
+          <span>Evcil Hayvan</span>
+        </a>
+      </div>
 
-        <h2 class="section-title">Son Eklenen İlanlar</h2>
+      <h2 class="section-title">Son Eklenen İlanlar</h2>
 
-        <div class="ads-grid" id="ads-carddd"></div>
-
+      <div class="ads-grid" id="ads-carddd"></div>
     </div>
-<script type="module">
-    import {LoadBanner,LoadHeader} from '../js/util.js';
-    import { loadProductsTo } from '../js/GetAllProducts.js';
-    document.addEventListener("DOMContentLoaded",async()=>{
+    <script type="module">
+      import { LoadBanner, LoadHeader } from "../js/util.js";
+      import { loadProductsTo } from "../js/GetAllProducts.js";
+      document.addEventListener("DOMContentLoaded", async () => {
         await LoadHeader("header2");
         await LoadBanner("banner");
-        await loadProductsTo('ads-carddd','http://localhost:5000/ads')
-    })
-</script>
-</body>
+        await loadProductsTo("ads-carddd", "http://localhost:5000/ads");
+      });
+    </script>
+  </body>
 </html>

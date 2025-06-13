@@ -1,67 +1,67 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
 
 :root {
-    --primary-color: #4361ee;
-    --secondary-color: #3f37c9;
-    --dark-color: #212529;
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --dark-color: #212529;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 footer {
-    background-color: var(--dark-color);
-    color: white;
-    padding: 50px 0;
-    text-align: center;
+  background-color: var(--dark-color);
+  color: white;
+  padding: 50px 0;
+  text-align: center;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .footer-logo {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: inline-block;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: inline-block;
 }
 
 .footer-logo i {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
 .footer-link {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .footer-link:hover {
-    color: #ccc;
+  color: #ccc;
 }
 
 .copyright {
-    color: #aaa;
-    font-size: 14px;
+  color: #aaa;
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {
-    .footer-links {
-        flex-direction: column;
-        gap: 15px;
-    }
+  .footer-links {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
