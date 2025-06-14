@@ -8,6 +8,15 @@ export function CalcDayDiffInDays(dateToCalc) {
   return daysDiff;
 }
 
+export async function imageToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(",")[1]); // Remove data URL prefix
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 export async function LoadHeader(id) {
   const response = await fetch("../partials/header.html");
   const html = await response.text();

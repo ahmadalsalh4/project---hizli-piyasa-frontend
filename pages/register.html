@@ -1,130 +1,189 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hızlı Piyasa - Kayıt Ol</title>
-    <link rel="stylesheet" href="../css/register.css"></link>
-</head>
-<body>
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">Hızlı Piyasa</div>
-        </div>
-        
-        <div class="form-container">
-            <h1 class="title">Yeni Hesap Oluştur</h1>
-            
-            <form id="registerForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Ad</label>
-                        <input type="text" id="name" name="name" required placeholder="Adınızı girin">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="surname">Soyad</label>
-                        <input type="text" id="surname" name="surname" required placeholder="Soyadınızı girin">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Telefon Numarası</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="Telefon numaranızı girin">
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">E-posta Adresi</label>
-                    <input type="email" id="email" name="email" required placeholder="E-posta adresinizi girin">
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Şifre</label>
-                    <input type="password" id="password" name="password" required placeholder="Şifre oluşturun">
-                </div>
-                
-                <div class="form-group">
-                    <label for="repassword">Şifre Tekrar</label>
-                    <input type="password" id="repassword" name="repassword" required placeholder="Şifrenizi tekrar girin">
-                </div>
-                
-                <div class="profile-photo-container">
-                    <div class="profile-photo-preview" id="photoPreview">
-                        <div class="placeholder">Fotoğraf seçilmedi</div>
-                    </div>
-                    <input type="file" id="profilePhoto" class="file-input" accept="image/*">
-                    <label for="profilePhoto" class="file-label">Profil Fotoğrafı Seç</label>
-                </div>
-                
-                <button type="submit" class="submit-btn">Kayıt Ol</button>
-                
-                <div class="divider">veya</div>
-                
-                <div class="links">
-                    Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a>
-                </div>
-            </form>
-        </div>
+      <div class="header">
+        <div class="logo">Hızlı Piyasa</div>
+      </div>
+
+      <div class="form-container">
+        <h1 class="title">Yeni Hesap Oluştur</h1>
+
+        <form id="registerForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Ad</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="Adınızı girin"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="surname">Soyad</label>
+              <input
+                type="text"
+                id="surname"
+                name="surname"
+                required
+                placeholder="Soyadınızı girin"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Telefon Numarası</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              required
+              placeholder="Telefon numaranızı girin"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-posta Adresi</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="E-posta adresinizi girin"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Şifre</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="Şifre oluşturun"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="repassword">Şifre Tekrar</label>
+            <input
+              type="password"
+              id="repassword"
+              name="repassword"
+              required
+              placeholder="Şifrenizi tekrar girin"
+            />
+          </div>
+
+          <div class="profile-photo-container">
+            <div class="profile-photo-preview" id="photoPreview">
+              <div class="placeholder">Fotoğraf seçilmedi</div>
+            </div>
+            <input
+              type="file"
+              id="profilePhoto"
+              class="file-input"
+              accept="image/*"
+            />
+            <label for="profilePhoto" class="file-label"
+              >Profil Fotoğrafı Seç</label
+            >
+          </div>
+
+          <button type="submit" class="submit-btn">Kayıt Ol</button>
+
+          <div class="divider">veya</div>
+
+          <div class="links">
+            Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a>
+          </div>
+        </form>
+      </div>
     </div>
-</body>
+  </body>
 
-    <script>
-        // Profile photo preview functionality
-        const profilePhoto = document.getElementById('profilePhoto');
-        const photoPreview = document.getElementById('photoPreview');
-        
-        profilePhoto.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    photoPreview.innerHTML = `<img src="${e.target.result}" alt="Profil Önizleme">`;
-                }
-                
-                reader.readAsDataURL(file);
-            }
-        });
+  <script type="module">
+    import { imageToBase64 } from "../js/util.js";
 
-        
-        
-        // Form submission
-        document.getElementById('registerForm').addEventListener('submit', async (event) => {
+    // Profile photo preview functionality
+    const profilePhoto = document.getElementById("profilePhoto");
+    const photoPreview = document.getElementById("photoPreview");
+
+    profilePhoto.addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          photoPreview.innerHTML = `<img src="${e.target.result}" alt="Profil Önizleme">`;
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Form submission
+    document
+      .getElementById("registerForm")
+      .addEventListener("submit", async (event) => {
         event.preventDefault();
-        try{
-            console.log(document.getElementById("profile_image_path"));
-            
+        try {
+          const name = document.getElementById("name").value;
+          const surname = document.getElementById("surname").value;
+          const phone_number = document.getElementById("phone").value;
+          const email = document.getElementById("email").value;
 
-            const name = document.getElementById("name").value;
-            const surname = document.getElementById("surname").value;
-            const phone_number = document.getElementById("phone").value;
-            const email = document.getElementById("email").value;
-            //const profile_image_path = document.getElementById("profile_image_path");
-            const password = document.getElementById("password").value;
-            const repassword = document.getElementById("repassword").value;
-            if(password != repassword)
-            {
-                console.log(password,repassword);
-                alert("şifre ve şifre tekrarı aynı değil !!!");
-                return;
-            }
-            const response = await fetch('http://localhost:5000/api/authenticat/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, surname, phone_number, email, password}),
-            });
-            const result = await response.json();
-            if(!response.ok)
-            {
-                throw new Error(result.error);
-            }
+          let profile_image_path = null;
+          const file = profilePhoto.files[0];
+          if (file) {
+            profile_image_path = await imageToBase64(file);
+          }
 
-            alert("başarli, yönlendirilyorsunuz...")
-                localStorage.setItem('authToken' ,result.token);
-                window.location.href = "index.html"
+          const password = document.getElementById("password").value;
+          const repassword = document.getElementById("repassword").value;
+
+          if (password != repassword) {
+            console.log(password, repassword);
+            alert("şifre ve şifre tekrarı aynı değil !!!");
+            return;
+          }
+
+          const response = await fetch(
+            "http://localhost:5000/api/authenticat/register",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name,
+                surname,
+                phone_number,
+                email,
+                password,
+                profile_image_path,
+              }),
+            }
+          );
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error);
+          }
+
+          alert("başarli, yönlendirilyorsunuz...");
+          localStorage.setItem("authToken", result.token);
+          window.location.href = "index.html";
+        } catch (error) {
+          alert(`Hata mesajı : ${error.message}`);
         }
-        catch(error){
-            alert(`Hata mesajı : ${error.message}`);
-        }});    
-    </script>
+      });
+  </script>
 </html>

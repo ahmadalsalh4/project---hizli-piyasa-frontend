@@ -18,7 +18,6 @@ export async function GetUserDate() {
 export async function UpdateUserdata() {
   // This data could come from an API call or other source
   const profileData = await GetUserDate();
-  console.log(profileData);
   // Update the DOM elements
   document.getElementById("profileImage").src = profileData.profile_image_path;
   document.getElementById("profileName").textContent =

@@ -89,9 +89,8 @@ export async function loadProductsTo(containerId, url) {
 
 export async function loadProductsToUser(containerId, url) {
   const products = await GetAllProductsForUser(url);
+  if (products.rowCount === 0) return 0;
   const container = document.getElementById(containerId);
   container.innerHTML = products.rows.map(MakeProductCardforUser).join("");
   return products.rowCount;
 }
-// adnumber
-// const AdNumber = document.getElementById(containerId);
