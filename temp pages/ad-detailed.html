@@ -552,20 +552,16 @@
     <script>
       // Resim değiştirme fonksiyonu
       function changeImage(img) {
-          document.getElementById('mainImage').src = img.src;
+        document.getElementById("mainImage").src = img.src;
 
-          // Tüm thumbnail'lerden active class'ını kaldır
-          const thumbnails = document.querySelectorAll('.thumbnail');
-          thumbnails.forEach(thumb => {
-              thumb.style.borderColor = '#ddd';
-          });
+        // Tüm thumbnail'lerden active class'ını kaldır
+        const thumbnails = document.querySelectorAll(".thumbnail");
+        thumbnails.forEach((thumb) => {
+          thumb.style.borderColor = "#ddd";
+        });
 
-          // Tıklanan thumbnail'e border ekle
-          img.style.borderColor = var(--primary-color);
+        // Tıklanan thumbnail'e border ekle
       }
-
-      // İlk thumbnail'e active class'ını ekle
-      document.querySelector('.thumbnail').style.borderColor = var(--primary-color);
     </script>
   </body>
 </html>
