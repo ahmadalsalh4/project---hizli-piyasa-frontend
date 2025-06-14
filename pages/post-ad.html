@@ -83,6 +83,7 @@
         loadcitiesNamesTo,
         imageToBase64,
       } from "../js/util.js";
+
       document.addEventListener("DOMContentLoaded", async () => {
         await loadCategoryNamesTo("catagory_id");
         await loadcitiesNamesTo("cities_id");
@@ -91,7 +92,7 @@
         const imageInput = document.getElementById("ad-image");
         const imagePreview = document.getElementById("imagePreview");
         const uploadArea = document.getElementById("imageUpload");
-        let selectedImage = null;
+        let selectedImageBase64 = null;
 
         // Handle image selection
         imageInput.addEventListener("change", async (e) => {
@@ -103,15 +104,21 @@
 
           if (e.target.files.length === 1) {
             try {
-              selectedImage = e.target.files[0];
+              // Clear previous preview
+              imagePreview.innerHTML = "";
+
+              // Convert to base64
+              selectedImageBase64 = await imageToBase64(e.target.files[0]);
 
               // Create preview
               const img = document.createElement("img");
-              img.src = selectedImage;
+              img.src = `data:image/jpeg;base64,${selectedImageBase64}`;
               imagePreview.appendChild(img);
             } catch (error) {
               console.error("Error processing image:", error);
               alert("Resim yüklenirken bir hata oluştu!");
+              selectedImageBase64 = null;
+              imageInput.value = "";
             }
           }
         });
@@ -188,7 +195,7 @@
                 title,
                 description,
                 price,
-                image_path: selectedImage,
+                image_path: selectedImageBase64, // Send the base64 string
                 category_id,
                 city_id,
               }),
