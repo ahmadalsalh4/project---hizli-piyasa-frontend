@@ -20,48 +20,65 @@ async function GetAllProductsForUser(url) {
 
 function MakeProductCard(product) {
   return `
-    <div class="ad-card">
-      <div class="ad-image">
-        <img src="${product.image_path || 'default-image.jpg'}" alt="${product.title}">
-      </div>
-      <div class="ad-details">
-        <h3 class="ad-title">${product.title}</h3>
-        <div class="ad-location">
-          <i class="fas fa-map-marker-alt"></i>
-          ${product.city_name}
+    <div class="ad-card" data-ad-id="${product.id}">
+      <a href="ad-detailed.html?id=${product.id}" class="ad-card-link">
+        <div class="ad-image">
+          <img src="${product.image_path || "default-image.jpg"}" alt="${
+    product.title
+  }">
         </div>
-        <div class="ad-price-container">
-          <div class="ad-price">${product.price.toLocaleString()} TL</div>
-          <div class="ad-date">${GetDateString(product.date)}</div>
+        <div class="ad-details">
+          <h3 class="ad-title">${product.title}</h3>
+          <div class="ad-location">
+            <i class="fas fa-map-marker-alt"></i>
+            ${product.city_name}
+          </div>
+          <div class="ad-price-container">
+            <div class="ad-price">${product.price.toLocaleString()} TL</div>
+            <div class="ad-date">${GetDateString(product.date)}</div>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   `;
 }
 
 function MakeProductCardforUser(product) {
   const statusClass = `status-${product.state_name.toLowerCase()}`;
-  
+
   return `
-    <div class="ad-card" data-status="${product.state_name.toLowerCase()}">
-      <div class="ad-image">
-        <img src="${product.image_path || 'default-image.jpg'}" alt="${product.title}">
-        <div class="ad-status ${statusClass}">${product.state_name}</div>
-        <div class="ad-actions">
-          <div class="action-btn" title="Düzenle">
-            <i class="fas fa-edit"></i>
+    <div class="ad-card" data-ad-id="${
+      product.id
+    }" data-status="${product.state_name.toLowerCase()}">
+      <a href="ad-detailed.html?id=${product.id}" class="ad-card-link">
+        <div class="ad-image">
+          <img src="${product.image_path || "default-image.jpg"}" alt="${
+    product.title
+  }">
+          <div class="ad-status ${statusClass}">${product.state_name}</div>
+        </div>
+        <div class="ad-details">
+          <h3 class="ad-title">${product.title}</h3>
+          <div class="ad-location">
+            <i class="fas fa-map-marker-alt"></i>
+            ${product.city_name}
+          </div>
+          <div class="ad-price-container">
+            <div class="ad-price">${product.price.toLocaleString()} TL</div>
+            <div class="ad-date">${GetDateString(product.date)}</div>
           </div>
         </div>
-      </div>
-      <div class="ad-details">
-        <h3 class="ad-title">${product.title}</h3>
-        <div class="ad-location">
-          <i class="fas fa-map-marker-alt"></i>
-          ${product.city_name}
+      </a>
+      <div class="ad-actions">
+        <div class="action-btn edit-btn" title="Düzenle" data-ad-id="${
+          product.id
+        }">
+          <i class="fas fa-edit"></i>
         </div>
-        <div class="ad-price-container">
-          <div class="ad-price">${product.price.toLocaleString()} TL</div>
-          <div class="ad-date">${GetDateString(product.date)}</div>
+        <div class="action-btn delete-btn" title="Sil" data-ad-id="${
+          product.id
+        }">
+          <i class="fas fa-trash"></i>
         </div>
       </div>
     </div>

@@ -65,7 +65,11 @@ body {
 }
 
 .auth-buttons .register {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   color: white;
 }
 
@@ -108,7 +112,11 @@ body {
   position: absolute;
   right: 5px;
   top: 5px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   color: white;
   border: none;
   border-radius: 25px;
@@ -144,7 +152,11 @@ body {
 }
 
 .step-icon {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -180,11 +192,15 @@ body {
 }
 
 .section-title::after {
-  content: '';
+  content: "";
   display: block;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   margin: 10px auto 0;
 }
 
@@ -227,7 +243,11 @@ body {
 }
 
 .category:hover .category-icon {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   color: white;
 }
 
@@ -400,7 +420,8 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.favorite-btn:hover, .favorite-btn.active {
+.favorite-btn:hover,
+.favorite-btn.active {
   color: #ff4757;
   background: rgba(255, 255, 255, 0.95);
 }
@@ -491,15 +512,74 @@ body {
   }
 }
 
+/* Card Link */
+.ad-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+/* Action Buttons Container */
+.ad-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  gap: 5px;
+}
+
+/* Individual Action Buttons */
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--gray-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.action-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Prevent clicks on buttons from triggering card link */
+.action-btn {
+  pointer-events: auto;
+}
+
+/* Status Badges */
+.ad-status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  z-index: 2;
+}
+
 @media (max-width: 480px) {
   .ads-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .search-container input {
     padding: 12px 15px;
   }
-  
+
   .search-container button {
     padding: 8px 15px;
   }

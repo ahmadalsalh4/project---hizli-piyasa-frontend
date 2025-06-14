@@ -306,7 +306,64 @@ body {
   color: white;
   transform: scale(1.1);
 }
+/* Card Link */
+.ad-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  z-index: 1;
+}
 
+/* Action Buttons Container */
+.ad-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  gap: 5px;
+}
+
+/* Individual Action Buttons */
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--gray-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.action-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Prevent clicks on buttons from triggering card link */
+.action-btn {
+  pointer-events: auto;
+}
+
+/* Status Badges */
+.ad-status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  z-index: 2;
+}
 /* Responsive Styles */
 @media (max-width: 768px) {
   .profile-header {

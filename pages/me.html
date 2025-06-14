@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="profile-actions-vertical">
-        <a href="../temp pages/edit-profile.html" class="edit-btn"
+        <a href="./edit-profile.html" class="edit-btn"
           ><i class="fas fa-edit"></i> Profili Düzenle</a
         >
         <a id="logout-btn" class="logout-btn">
@@ -68,8 +68,10 @@
       } from "../js/GetAllProducts.js";
       import { UpdateProfileState } from "../js/header.js";
       import { UpdateUserdata } from "../js/UserDate.js";
+      import { initCardInteractions } from "../js/cardInteractions.js";
 
       document.addEventListener("DOMContentLoaded", async () => {
+        initCardInteractions();
         await LoadHeader("header");
         await UpdateUserdata();
         await UpdateProfileState("header");
