@@ -108,8 +108,6 @@ body {
   background-color: #ffdddd;
 }
 
-
-
 .ads-section {
   max-width: 1200px;
   margin: 30px auto;
@@ -280,6 +278,28 @@ body {
   color: var(--gray-color);
 }
 
+/* Add these to your CSS */
+.status-active {
+  background-color: var(--success-color);
+}
+
+.status-pending {
+  background-color: var(--warning-color);
+}
+
+.status-suspended {
+  background-color: var(--warning-color);
+}
+
+.status-sold {
+  background-color: var(--error-color);
+}
+
+/* Ensure cards are initially visible */
+.ad-card {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .top-bar {
     flex-direction: column;
@@ -291,20 +311,20 @@ body {
   }
 
   @media (max-width: 768px) {
-  .profile-header {
-    flex-direction: column;
-    text-align: center;
+    .profile-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .profile-actions-vertical {
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .detail-item {
+      justify-content: center;
+    }
   }
-  
-  .profile-actions-vertical {
-    width: 100%;
-    margin-top: 15px;
-  }
-  
-  .detail-item {
-    justify-content: center;
-  }
-}
 
   .profile-details {
     grid-template-columns: 1fr;

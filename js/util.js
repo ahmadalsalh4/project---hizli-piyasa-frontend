@@ -42,5 +42,5 @@ export function LogOut() {
   localStorage.clear();
   setTimeout(() => {
     window.location.href = "./index.html";
-  }, 300);
+  }, 150);
 }

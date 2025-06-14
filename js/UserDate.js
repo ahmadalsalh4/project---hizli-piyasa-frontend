@@ -14,3 +14,16 @@ export async function GetUserDate() {
     }
   } else return false;
 }
+
+export async function UpdateUserdata() {
+  // This data could come from an API call or other source
+  const profileData = await GetUserDate();
+  console.log(profileData);
+  // Update the DOM elements
+  document.getElementById("profileImage").src = profileData.profile_image_path;
+  document.getElementById("profileName").textContent =
+    profileData.name + " " + profileData.surname;
+  document.getElementById("profileEmail").textContent = profileData.email;
+  document.getElementById("profilePhone").textContent =
+    profileData.phone_number;
+}
