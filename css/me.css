@@ -10,6 +10,7 @@
   --success-color: #4bb543;
   --warning-color: #ff9800;
   --error-color: #f44336;
+  --hover-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
 }
 
 * {
@@ -21,7 +22,10 @@
 
 body {
   background-color: #f5f7ff;
+  line-height: 1.6;
 }
+
+/* Profile Header Styles */
 .profile-header {
   max-width: 1200px;
   margin: 30px auto;
@@ -50,6 +54,7 @@ body {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 10px;
+  color: var(--dark-color);
 }
 
 .profile-contact {
@@ -108,14 +113,14 @@ body {
   background-color: #ffdddd;
 }
 
+/* Ads Section */
 .ads-section {
   max-width: 1200px;
   margin: 30px auto;
-  padding: 0 20px;
+  padding: 25px;
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--card-shadow);
-  padding: 25px;
 }
 
 .section-title {
@@ -127,6 +132,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--dark-color);
 }
 
 .status-tabs {
@@ -153,27 +159,31 @@ body {
   color: var(--primary-color);
 }
 
+/* Unified Card Styles (matches index.css) */
 .ads-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
 }
 
 .ad-card {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--card-shadow);
-  transition: transform 0.3s;
+  transition: all 0.3s ease;
   position: relative;
+  border: 1px solid #f0f0f0;
 }
 
 .ad-card:hover {
   transform: translateY(-5px);
+  box-shadow: var(--hover-shadow);
 }
 
 .ad-image {
-  height: 180px;
+  height: 200px;
+  width: 100%;
   overflow: hidden;
   position: relative;
 }
@@ -182,69 +192,22 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s;
+  transition: transform 0.5s ease;
 }
 
 .ad-card:hover .ad-image img {
-  transform: scale(1.05);
-}
-
-.ad-status {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  color: white;
-}
-
-.status-active {
-  background-color: var(--success-color);
-}
-
-.status-pending {
-  background-color: var(--warning-color);
-}
-
-.status-sold {
-  background-color: var(--error-color);
-}
-
-.ad-actions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 5px;
-}
-
-.action-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: var(--dark-color);
-}
-
-.action-btn:hover {
-  background-color: var(--primary-color);
-  color: white;
+  transform: scale(1.1);
 }
 
 .ad-details {
-  padding: 15px;
+  padding: 18px;
 }
 
 .ad-title {
   font-weight: 600;
   margin-bottom: 8px;
+  color: var(--dark-color);
+  font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -263,75 +226,129 @@ body {
   font-size: 12px;
 }
 
+.ad-price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
 .ad-price {
   font-weight: 700;
   color: var(--primary-color);
   font-size: 18px;
-  margin-top: 10px;
 }
 
-.ad-meta {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+.ad-date {
   font-size: 12px;
   color: var(--gray-color);
 }
 
-/* Add these to your CSS */
+/* Status Badges */
+.ad-status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  z-index: 2;
+}
+
 .status-active {
   background-color: var(--success-color);
 }
 
 .status-pending {
   background-color: var(--warning-color);
+  color: var(--dark-color);
 }
 
 .status-suspended {
   background-color: var(--warning-color);
+  color: var(--dark-color);
 }
 
 .status-sold {
   background-color: var(--error-color);
 }
 
-/* Ensure cards are initially visible */
-.ad-card {
-  display: block;
+/* Action Buttons */
+.ad-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  z-index: 2;
 }
 
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--gray-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .top-bar {
+  .profile-header {
     flex-direction: column;
-    padding: 15px;
+    text-align: center;
   }
 
-  .logo {
-    margin-bottom: 15px;
+  .profile-actions-vertical {
+    width: 100%;
+    margin-top: 15px;
   }
 
-  @media (max-width: 768px) {
-    .profile-header {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .profile-actions-vertical {
-      width: 100%;
-      margin-top: 15px;
-    }
-
-    .detail-item {
-      justify-content: center;
-    }
+  .detail-item {
+    justify-content: center;
   }
 
-  .profile-details {
-    grid-template-columns: 1fr;
+  .ads-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .ad-image {
+    height: 160px;
   }
 
   .status-tabs {
     flex-wrap: wrap;
-    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .ads-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .profile-pic {
+    width: 80px;
+    height: 80px;
   }
 }
