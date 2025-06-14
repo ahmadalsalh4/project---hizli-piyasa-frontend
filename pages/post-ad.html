@@ -16,13 +16,7 @@
             <label for="ad-title"
               >İlan Başlığı <span class="required">*</span></label
             >
-            <input
-              type="text"
-              id="ad-title"
-              name="ad-title"
-              required
-              placeholder="Örneğin: iPhone 12 128GB"
-            />
+            <input type="text" id="ad-title" name="ad-title" required />
           </div>
 
           <div class="form-group">
@@ -33,37 +27,18 @@
               id="ad-description"
               name="ad-description"
               required
-              placeholder="Ürününüzü detaylı bir şekilde anlatın"
             ></textarea>
           </div>
 
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" id="catagory_id">
               <label for="ad-category"
                 >Kategori <span class="required">*</span></label
               >
-              <select id="ad-category" name="ad-category" required>
-                <option value="">Kategori seçin</option>
-                <option value="electronics">Elektronik</option>
-                <option value="fashion">Moda</option>
-                <option value="home">Ev, Bahçe</option>
-                <option value="vehicle">Araç</option>
-                <option value="property">Emlak</option>
-                <option value="other">Diğer</option>
-              </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="cities_id">
               <label for="ad-city">Şehir <span class="required">*</span></label>
-              <select id="ad-city" name="ad-city" required>
-                <option value="">Şehir seçin</option>
-                <option value="istanbul">İstanbul</option>
-                <option value="ankara">Ankara</option>
-                <option value="izmir">İzmir</option>
-                <option value="bursa">Bursa</option>
-                <option value="antalya">Antalya</option>
-                <!-- Diğer şehirler eklenebilir -->
-              </select>
             </div>
           </div>
 
@@ -72,41 +47,29 @@
               <label for="ad-price"
                 >Fiyat (TL) <span class="required">*</span></label
               >
-              <input
-                type="number"
-                id="ad-price"
-                name="ad-price"
-                required
-                placeholder="Örneğin: 5000"
-              />
+              <input type="number" id="ad-price" name="ad-price" required />
             </div>
           </div>
 
           <div class="form-group">
-            <label>Ürün Resimleri <span class="required">*</span></label>
+            <label>Ürün Resmi</label>
             <div class="image-upload" id="imageUpload">
               <div class="upload-icon">
                 <i class="fas fa-cloud-upload-alt"></i>
               </div>
               <div class="upload-text">
-                Resimleri buraya sürükleyip bırakın veya tıklayarak seçin
-              </div>
-              <div class="upload-hint">
-                Maksimum 10 resim (Her biri max 5MB)
+                Resmi buraya sürükleyip bırakın veya tıklayarak seçin (Sadece 1
+                resim)
               </div>
             </div>
             <input
               type="file"
-              id="ad-images"
-              name="ad-images"
-              multiple
+              id="ad-image"
+              name="ad-image"
               accept="image/*"
               style="display: none"
             />
-
-            <div class="preview-container" id="imagePreview">
-              <!-- Resim önizlemeleri burada gösterilecek -->
-            </div>
+            <div class="preview-container" id="imagePreview"></div>
           </div>
 
           <button type="submit" class="submit-btn">İlanı Yayınla</button>
@@ -114,113 +77,137 @@
       </div>
     </div>
 
-    <script>
-      // Resim yükleme işlevselliği
-      const imageUpload = document.getElementById("imageUpload");
-      const fileInput = document.getElementById("ad-images");
-      const imagePreview = document.getElementById("imagePreview");
+    <script type="module">
+      import {
+        loadCategoryNamesTo,
+        loadcitiesNamesTo,
+        imageToBase64,
+      } from "../js/util.js";
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadCategoryNamesTo("catagory_id");
+        await loadcitiesNamesTo("cities_id");
 
-      imageUpload.addEventListener("click", () => {
-        fileInput.click();
-      });
+        const form = document.getElementById("postAdForm");
+        const imageInput = document.getElementById("ad-image");
+        const imagePreview = document.getElementById("imagePreview");
+        const uploadArea = document.getElementById("imageUpload");
+        let selectedImage = null;
 
-      // Sürükle bırak desteği
-      imageUpload.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        imageUpload.style.borderColor =
-          getComputedStyle(imageUpload).getPropertyValue("--primary-color"); //var(--primary-color);
-        imageUpload.style.backgroundColor = "rgba(67, 97, 238, 0.1)";
-      });
-
-      imageUpload.addEventListener("dragleave", () => {
-        imageUpload.style.borderColor = "#ddd";
-        imageUpload.style.backgroundColor = "transparent";
-      });
-
-      imageUpload.addEventListener("drop", (e) => {
-        e.preventDefault();
-        imageUpload.style.borderColor = "#ddd";
-        imageUpload.style.backgroundColor = "transparent";
-
-        if (e.dataTransfer.files.length) {
-          fileInput.files = e.dataTransfer.files;
-          updateImagePreview();
-        }
-      });
-
-      fileInput.addEventListener("change", updateImagePreview);
-
-      function updateImagePreview() {
-        imagePreview.innerHTML = "";
-
-        if (fileInput.files.length > 10) {
-          alert("Maksimum 10 resim yükleyebilirsiniz!");
-          return;
-        }
-
-        for (let i = 0; i < Math.min(fileInput.files.length, 10); i++) {
-          const file = fileInput.files[i];
-
-          // Dosya boyutu kontrolü (max 5MB)
-          if (file.size > 5 * 1024 * 1024) {
-            alert(`${file.name} dosyası çok büyük (max 5MB)`);
-            continue;
-          }
-
-          const reader = new FileReader();
-
-          reader.onload = function (e) {
-            const preview = document.createElement("div");
-            preview.className = "image-preview";
-            preview.innerHTML = `
-                        <img src="${e.target.result}" alt="Preview">
-                        <div class="remove-image" data-index="${i}">&times;</div>
-                    `;
-            imagePreview.appendChild(preview);
-
-            // Resim kaldırma butonu
-            preview
-              .querySelector(".remove-image")
-              .addEventListener("click", (e) => {
-                e.stopPropagation();
-                removeImage(i);
-              });
-          };
-
-          reader.readAsDataURL(file);
-        }
-      }
-
-      function removeImage(index) {
-        const dt = new DataTransfer();
-        const files = Array.from(fileInput.files);
-
-        files.splice(index, 1);
-
-        files.forEach((file) => {
-          dt.items.add(file);
-        });
-
-        fileInput.files = dt.files;
-        updateImagePreview();
-      }
-
-      // Form gönderimi
-      document
-        .getElementById("postAdForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          // Basit doğrulama
-          if (fileInput.files.length === 0) {
-            alert("Lütfen en az bir resim ekleyin!");
+        // Handle image selection
+        imageInput.addEventListener("change", async (e) => {
+          if (e.target.files.length > 1) {
+            alert("Lütfen sadece 1 resim seçiniz!");
+            imageInput.value = "";
             return;
           }
 
-          // Burada form verilerini sunucuya gönderebilirsiniz
-          alert("İlan başarıyla gönderildi! Yönlendiriliyorsunuz...");
-          // window.location.href = "my-ads.html";
+          if (e.target.files.length === 1) {
+            try {
+              selectedImage = e.target.files[0];
+
+              // Create preview
+              const img = document.createElement("img");
+              img.src = selectedImage;
+              imagePreview.appendChild(img);
+            } catch (error) {
+              console.error("Error processing image:", error);
+              alert("Resim yüklenirken bir hata oluştu!");
+            }
+          }
         });
+
+        // Handle drag and drop for image
+        uploadArea.addEventListener("click", () => imageInput.click());
+
+        uploadArea.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          uploadArea.classList.add("dragover");
+        });
+
+        uploadArea.addEventListener("dragleave", () => {
+          uploadArea.classList.remove("dragover");
+        });
+
+        uploadArea.addEventListener("drop", (e) => {
+          e.preventDefault();
+          uploadArea.classList.remove("dragover");
+
+          if (e.dataTransfer.files.length > 1) {
+            alert("Lütfen sadece 1 resim sürükleyiniz!");
+            return;
+          }
+
+          imageInput.files = e.dataTransfer.files;
+          const event = new Event("change");
+          imageInput.dispatchEvent(event);
+        });
+
+        // Handle form submission
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Get form values
+          const title = document.getElementById("ad-title").value.trim();
+          const description = document
+            .getElementById("ad-description")
+            .value.trim();
+          const price = document.getElementById("ad-price").value.trim();
+          const category_id = document.querySelector(
+            "#catagory_id select"
+          ).value;
+          const city_id = document.querySelector("#cities_id select").value;
+
+          // Validate form
+          if (!title || !description || !price || !category_id || !city_id) {
+            alert("Lütfen tüm zorunlu alanları doldurunuz!");
+            return;
+          }
+
+          if (isNaN(price) || parseFloat(price) <= 0) {
+            alert("Lütfen geçerli bir fiyat giriniz!");
+            return;
+          }
+
+          // Get JWT token from storage
+          const token = localStorage.getItem("authToken");
+          if (!token) {
+            alert("Oturum açmanız gerekiyor!");
+            window.location.href = "./login.html";
+            return;
+          }
+
+          try {
+            // Prepare request
+            const response = await fetch("http://localhost:5000/api/me/ads", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                title,
+                description,
+                price,
+                image_path: selectedImage,
+                category_id,
+                city_id,
+              }),
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || "İlan gönderilemedi");
+            }
+
+            const data = await response.json();
+            alert("İlan başarıyla oluşturuldu!");
+            window.location.href = `./me.html`;
+          } catch (error) {
+            console.error("Error posting ad:", error);
+            alert(`İlan gönderilirken bir hata oluştu: ${error.message}`);
+          }
+        });
+      });
     </script>
   </body>
 </html>
