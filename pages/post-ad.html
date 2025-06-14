@@ -84,136 +84,142 @@
         imageToBase64,
       } from "../js/util.js";
 
+      // First check authentication before doing anything else
       document.addEventListener("DOMContentLoaded", async () => {
-        await loadCategoryNamesTo("catagory_id");
-        await loadcitiesNamesTo("cities_id");
+        // Check if user is logged in
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          window.location.href = "./login.html";
+          return;
+        }
 
-        const form = document.getElementById("postAdForm");
-        const imageInput = document.getElementById("ad-image");
-        const imagePreview = document.getElementById("imagePreview");
-        const uploadArea = document.getElementById("imageUpload");
-        let selectedImageBase64 = null;
+        // User is authenticated, proceed with page setup
+        try {
+          await loadCategoryNamesTo("catagory_id");
+          await loadcitiesNamesTo("cities_id");
 
-        // Handle image selection
-        imageInput.addEventListener("change", async (e) => {
-          if (e.target.files.length > 1) {
-            alert("Lütfen sadece 1 resim seçiniz!");
-            imageInput.value = "";
-            return;
-          }
+          const form = document.getElementById("postAdForm");
+          const imageInput = document.getElementById("ad-image");
+          const imagePreview = document.getElementById("imagePreview");
+          const uploadArea = document.getElementById("imageUpload");
+          let selectedImageBase64 = null;
 
-          if (e.target.files.length === 1) {
-            try {
-              // Clear previous preview
-              imagePreview.innerHTML = "";
-
-              // Convert to base64
-              selectedImageBase64 = await imageToBase64(e.target.files[0]);
-
-              // Create preview
-              const img = document.createElement("img");
-              img.src = `data:image/jpeg;base64,${selectedImageBase64}`;
-              imagePreview.appendChild(img);
-            } catch (error) {
-              console.error("Error processing image:", error);
-              alert("Resim yüklenirken bir hata oluştu!");
-              selectedImageBase64 = null;
+          // Handle image selection
+          imageInput.addEventListener("change", async (e) => {
+            if (e.target.files.length > 1) {
+              alert("Lütfen sadece 1 resim seçiniz!");
               imageInput.value = "";
-            }
-          }
-        });
-
-        // Handle drag and drop for image
-        uploadArea.addEventListener("click", () => imageInput.click());
-
-        uploadArea.addEventListener("dragover", (e) => {
-          e.preventDefault();
-          uploadArea.classList.add("dragover");
-        });
-
-        uploadArea.addEventListener("dragleave", () => {
-          uploadArea.classList.remove("dragover");
-        });
-
-        uploadArea.addEventListener("drop", (e) => {
-          e.preventDefault();
-          uploadArea.classList.remove("dragover");
-
-          if (e.dataTransfer.files.length > 1) {
-            alert("Lütfen sadece 1 resim sürükleyiniz!");
-            return;
-          }
-
-          imageInput.files = e.dataTransfer.files;
-          const event = new Event("change");
-          imageInput.dispatchEvent(event);
-        });
-
-        // Handle form submission
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-
-          // Get form values
-          const title = document.getElementById("ad-title").value.trim();
-          const description = document
-            .getElementById("ad-description")
-            .value.trim();
-          const price = document.getElementById("ad-price").value.trim();
-          const category_id = document.querySelector(
-            "#catagory_id select"
-          ).value;
-          const city_id = document.querySelector("#cities_id select").value;
-
-          // Validate form
-          if (!title || !description || !price || !category_id || !city_id) {
-            alert("Lütfen tüm zorunlu alanları doldurunuz!");
-            return;
-          }
-
-          if (isNaN(price) || parseFloat(price) <= 0) {
-            alert("Lütfen geçerli bir fiyat giriniz!");
-            return;
-          }
-
-          // Get JWT token from storage
-          const token = localStorage.getItem("authToken");
-          if (!token) {
-            alert("Oturum açmanız gerekiyor!");
-            window.location.href = "./login.html";
-            return;
-          }
-
-          try {
-            // Prepare request
-            const response = await fetch("http://localhost:5000/api/me/ads", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({
-                title,
-                description,
-                price,
-                image_path: selectedImageBase64, // Send the base64 string
-                category_id,
-                city_id,
-              }),
-            });
-
-            if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(errorData.message || "İlan gönderilemedi");
+              return;
             }
 
-            const data = await response.json();
-            alert("İlan başarıyla oluşturuldu!");
-            window.location.href = `./me.html`;
-          } catch (error) {
-            console.error("Error posting ad:", error);
-            alert(`İlan gönderilirken bir hata oluştu: ${error.message}`);
-          }
-        });
+            if (e.target.files.length === 1) {
+              try {
+                // Clear previous preview
+                imagePreview.innerHTML = "";
+
+                // Convert to base64
+                selectedImageBase64 = await imageToBase64(e.target.files[0]);
+
+                // Create preview
+                const img = document.createElement("img");
+                img.src = `data:image/jpeg;base64,${selectedImageBase64}`;
+                imagePreview.appendChild(img);
+              } catch (error) {
+                console.error("Error processing image:", error);
+                alert("Resim yüklenirken bir hata oluştu!");
+                selectedImageBase64 = null;
+                imageInput.value = "";
+              }
+            }
+          });
+
+          // Handle drag and drop for image
+          uploadArea.addEventListener("click", () => imageInput.click());
+
+          uploadArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            uploadArea.classList.add("dragover");
+          });
+
+          uploadArea.addEventListener("dragleave", () => {
+            uploadArea.classList.remove("dragover");
+          });
+
+          uploadArea.addEventListener("drop", (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove("dragover");
+
+            if (e.dataTransfer.files.length > 1) {
+              alert("Lütfen sadece 1 resim sürükleyiniz!");
+              return;
+            }
+
+            imageInput.files = e.dataTransfer.files;
+            const event = new Event("change");
+            imageInput.dispatchEvent(event);
+          });
+
+          // Handle form submission
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const title = document.getElementById("ad-title").value.trim();
+            const description = document
+              .getElementById("ad-description")
+              .value.trim();
+            const price = document.getElementById("ad-price").value.trim();
+            const category_id = document.querySelector(
+              "#catagory_id select"
+            ).value;
+            const city_id = document.querySelector("#cities_id select").value;
+
+            // Validate form
+            if (!title || !description || !price || !category_id || !city_id) {
+              alert("Lütfen tüm zorunlu alanları doldurunuz!");
+              return;
+            }
+
+            if (isNaN(price) || parseFloat(price) <= 0) {
+              alert("Lütfen geçerli bir fiyat giriniz!");
+              return;
+            }
+
+            try {
+              // Prepare request
+              const response = await fetch("http://localhost:5000/api/me/ads", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                  title,
+                  description,
+                  price,
+                  image_path: selectedImageBase64,
+                  category_id,
+                  city_id,
+                }),
+              });
+
+              if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "İlan gönderilemedi");
+              }
+
+              const data = await response.json();
+              alert("İlan başarıyla oluşturuldu!");
+              window.location.href = `./me.html`;
+            } catch (error) {
+              console.error("Error posting ad:", error);
+              alert(`İlan gönderilirken bir hata oluştu: ${error.message}`);
+            }
+          });
+        } catch (error) {
+          console.error("Page initialization error:", error);
+          alert("Sayfa yüklenirken bir hata oluştu. Lütfen tekrar deneyin.");
+        }
       });
     </script>
   </body>
