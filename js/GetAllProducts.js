@@ -111,6 +111,15 @@ export async function loadProductsToSeller(containerId, url) {
   return { userdata: data.userdata, rowCount: data.rowCount };
 }
 
+export async function loadProductsToSerch(containerId, url) {
+  const res = await fetch(url);
+  if (!res.ok) return -1;
+  const data = await res.json();
+  const container = document.getElementById(containerId);
+  container.innerHTML = data.rows.map(MakeProductCard).join("");
+  return data.rowCount;
+}
+
 function setupDeleteButtons(container) {
   container.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", async (e) => {

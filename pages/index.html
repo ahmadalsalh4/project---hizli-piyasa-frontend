@@ -46,13 +46,10 @@
         await loadProductsTo("ads-card", "http://localhost:5000/api/ads");
         await LoadFooter("footer");
 
-        // Add click event delegation for ad cards
         document.getElementById("ads-card").addEventListener("click", (e) => {
-          // Find the closest ad-card element
           const card = e.target.closest(".ad-card");
           if (card) {
             const adId = card.getAttribute("data-ad-id");
-            // Navigate to the detailed page with the ad ID
             window.location.href = `ad-detailed.html?id=${adId}`;
           }
         });
