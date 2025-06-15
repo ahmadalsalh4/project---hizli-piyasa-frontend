@@ -101,6 +101,14 @@ export async function loadProductsTo(containerId, url) {
   container.innerHTML = products.map(MakeProductCard).join("");
 }
 
+export async function loadProductsToSeller(containerId, url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  const container = document.getElementById(containerId);
+  container.innerHTML = data.rows.map(MakeProductCard).join("");
+  return { userdata: data.userdata, rowCount: data.rowCount };
+}
+
 function setupDeleteButtons(container) {
   container.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", async (e) => {

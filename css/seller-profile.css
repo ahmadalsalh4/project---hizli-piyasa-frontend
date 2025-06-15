@@ -1,0 +1,336 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css");
+
+/* CSS Variables - Consolidated and Organized */
+:root {
+  /* Colors */
+  --primary: #4361ee;
+  --primary-dark: #3f37c9;
+  --primary-light: rgba(67, 97, 238, 0.1);
+  --light: #f8f9fa;
+  --dark: #212529;
+  --gray: #6c757d;
+  --light-gray: #f0f0f0;
+  --white: #ffffff;
+  
+  /* Status Colors */
+  --success: #4bb543;
+  --warning: #ff9800;
+  --error: #f44336;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 20px rgba(0, 0, 0, 0.12);
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  
+  /* Border */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 50%;
+  
+  /* Transition */
+  --transition: all 0.3s ease;
+}
+
+/* Base Reset - More Efficient */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  background-color: #f5f7ff;
+  color: var(--dark);
+}
+
+/* Utility Classes - Reusable */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+.shadow {
+  box-shadow: var(--shadow-md);
+}
+
+.hover\:shadow-lg:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+/* Profile Header - Optimized */
+.profile-header {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.25rem;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 1.875rem;
+}
+
+.profile-pic {
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 0.3125rem solid #f1f3ff;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.625rem;
+}
+
+.profile-contact .detail-item {
+  color: var(--gray);
+}
+
+.profile-contact .detail-item i {
+  width: 1.25rem;
+  color: var(--primary);
+  margin-right: 0.625rem;
+}
+
+/* Ads Section - Optimized */
+.ads-section {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5625rem;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+/* Ads Grid - Optimized with CSS Grid */
+.ads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.625rem, 1fr));
+  gap: 1.5625rem;
+}
+
+/* Ad Card - Optimized */
+.ad-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  border: 1px solid var(--light-gray);
+  position: relative;
+}
+
+.ad-card:hover {
+  transform: translateY(-0.3125rem);
+  box-shadow: var(--shadow-lg);
+}
+
+.ad-image {
+  aspect-ratio: 1/1;
+  max-height: 12.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.ad-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ad-card:hover .ad-image img {
+  transform: scale(1.05);
+}
+
+.ad-details {
+  padding: 1.125rem;
+}
+
+.ad-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ad-location {
+  color: var(--gray);
+  font-size: 0.875rem;
+  margin-bottom: 0.625rem;
+}
+
+.ad-location i {
+  margin-right: 0.3125rem;
+  font-size: 0.75rem;
+}
+
+.ad-price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.9375rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--light-gray);
+}
+
+.ad-price {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.125rem;
+}
+
+.ad-date {
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+/* Status Badges - Optimized */
+.ad-status {
+  position: absolute;
+  top: 0.625rem;
+  left: 0.625rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--white);
+  z-index: 2;
+}
+
+.status-active { background-color: var(--success); }
+.status-pending { 
+  background-color: var(--warning);
+  color: var(--dark);
+}
+.status-sold { background-color: var(--error); }
+
+/* Action Buttons - Optimized */
+.ad-actions {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  display: flex;
+  gap: 0.3125rem;
+  z-index: 2;
+}
+
+.action-btn {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--gray);
+  box-shadow: var(--shadow-sm);
+  border: none;
+}
+
+.action-btn:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+.delete-btn:hover {
+  background: var(--error);
+  color: var(--white);
+}
+
+/* Responsive Design - Optimized */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .profile-contact .detail-item {
+    justify-content: center;
+  }
+  
+  .ads-grid {
+    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ads-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-header {
+    padding: 1rem;
+  }
+  
+  .profile-pic {
+    width: 5rem;
+    height: 5rem;
+  }
+  
+  .ad-image {
+    max-height: 10rem;
+  }
+}
+
+/* Accessibility Improvements */
+[aria-hidden="true"] {
+  aria-hidden: true;
+}
+
+/* Performance Optimizations */
+img[loading="lazy"] {
+  loading: lazy;
+}

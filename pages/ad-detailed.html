@@ -13,7 +13,9 @@
     <div class="container">
       <div class="product-container">
         <div class="product-gallery">
-          <img src="" alt="Ürün Resmi" class="main-image" id="mainImage" />
+          <a href="#" class="image-zoom-trigger" id="zoomTrigger">
+            <img src="" alt="Ürün Resmi" class="main-image" id="mainImage" />
+          </a>
         </div>
 
         <div class="product-info">
@@ -50,7 +52,7 @@
               </div>
               <div>
                 <span class="stat-value" id="sellerPhone"
-                  >0552 545 53 67 <br />
+                  >???? <br />
                   telefon numarası</span
                 >
               </div>
@@ -164,6 +166,39 @@
             window.location.href = `tel:${phone.replace(/\D/g, "")}`;
           } else {
             alert("Satıcı telefon numarası bulunamadı");
+          }
+        });
+
+        // Create zoom modal elements
+        const zoomModal = document.createElement("div");
+        zoomModal.className = "image-zoom-modal";
+        const zoomedImg = document.createElement("img");
+        zoomedImg.className = "zoomed-image";
+        zoomModal.appendChild(zoomedImg);
+        document.body.appendChild(zoomModal);
+
+        // Handle click on product image
+        const zoomTrigger = document.getElementById("zoomTrigger");
+        const mainImage = document.getElementById("mainImage");
+
+        if (zoomTrigger && mainImage) {
+          zoomTrigger.addEventListener("click", (e) => {
+            e.preventDefault();
+            zoomedImg.src = mainImage.src;
+            zoomedImg.alt = mainImage.alt;
+            zoomModal.style.display = "block";
+          });
+        }
+
+        // Close modal when clicked
+        zoomModal.addEventListener("click", () => {
+          zoomModal.style.display = "none";
+        });
+
+        // Close modal with ESC key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && zoomModal.style.display === "block") {
+            zoomModal.style.display = "none";
           }
         });
       });
