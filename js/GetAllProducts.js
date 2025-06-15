@@ -3,6 +3,7 @@ import { CalcDayDiffInDays } from "./util.js";
 async function GetAllProducts(url) {
   const res = await fetch(url);
   const data = await res.json();
+
   return data.rows;
 }
 
@@ -103,6 +104,7 @@ export async function loadProductsTo(containerId, url) {
 
 export async function loadProductsToSeller(containerId, url) {
   const res = await fetch(url);
+  if (!res.ok) return -1;
   const data = await res.json();
   const container = document.getElementById(containerId);
   container.innerHTML = data.rows.map(MakeProductCard).join("");

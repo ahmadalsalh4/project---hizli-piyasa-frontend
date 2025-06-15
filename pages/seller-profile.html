@@ -58,18 +58,20 @@
           "ads-card",
           `http://localhost:5000/api/ads/user/${userId}`
         );
-        const profileImage = document.getElementById("profileImage");
-        profileImage.src = data.userdata.profile_image_path;
+        if (data != -1) {
+          const profileImage = document.getElementById("profileImage");
+          profileImage.src = data.userdata.profile_image_path;
 
-        document.getElementById("profileName").textContent =
-          data.userdata.name + " " + data.userdata.surname;
+          document.getElementById("profileName").textContent =
+            data.userdata.name + " " + data.userdata.surname;
 
-        document.getElementById("profilePhone").textContent =
-          data.userdata.phone_number;
+          document.getElementById("profilePhone").textContent =
+            data.userdata.phone_number;
 
-        document.getElementById(
-          "section-title_id"
-        ).textContent = `Aktif İlan sayısı (${data.rowCount})`;
+          document.getElementById(
+            "section-title_id"
+          ).textContent = `Aktif İlan sayısı (${data.rowCount})`;
+        } else window.location.href = "./404.html";
 
         await LoadFooter("footer");
       });
