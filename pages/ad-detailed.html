@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ürün Detayı | Hızlı Piyasa</title>
+    <link rel="stylesheet" href="../css/ad-detailed.css" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <header><div id="header"></div></header>
+
+    <div class="container">
+      <div class="product-container">
+        <div class="product-gallery">
+          <img
+            src=""
+            alt="iPhone 13 Pro"
+            class="main-image"
+            id="mainImage"
+          />
+        </div>
+
+        <div class="product-info">
+          <div class="product-header">
+            <h1 class="product-title">???</h1>
+            <div class="product-location">
+              <i class="fas fa-map-marker-alt"></i>
+              ???
+            </div>
+            <div class="product-price">???</div>
+
+            <div class="product-meta">
+              <span><i class="far fa-calendar-alt"></i>???</span>
+            </div>
+
+            <div class="product-actions">
+              <button class="btn btn-primary">
+                <i class="fas fa-phone-alt"></i> Ara
+              </button>
+              <button class="btn btn-outline">
+                <i class="far fa-envelope"></i> Mesaj
+              </button>
+            </div>
+          </div>
+
+          <div class="seller-card">
+            <img
+              src=""
+              alt="Seller"
+              class="seller-avatar"
+            />
+            <h3 class="seller-name">???</h3>
+            <div class="seller-stats">
+              <div>
+                <span class="stat-value">??? ilan</span>
+              </div>
+              <div>
+                <span class="stat-value">0552 545 53 67 <br> telefon numarası</span>
+              </div>
+            </div>
+            <a
+              href="user-profile.html"
+              class="btn btn-outline"
+              style="width: 100%"
+            >
+              <i class="fas fa-user"></i> Profili Görüntüle
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-details">
+        <h2 class="section-title">Ürün Açıklaması</h2>
+        <div class="product-description">
+          ???
+        </div>
+      </div>
+
+      <div class="similar-products">
+        <h2 class="section-title">Benzer İlanlar</h2>
+        <div class="products-grid" id="ads-card"></div>
+      </div>
+    </div>
+
+    <footer><div id="footer"></div></footer>
+    <script type="module">
+      import { LoadHeader, LogOut, LoadFooter } from "../js/util.js";
+      import { loadProductsTo } from "../js/GetAllProducts.js";
+      import { UpdateProfileState } from "../js/header.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await LoadHeader("header");
+        await UpdateProfileState("header");
+        await loadProductsTo("ads-card", "http://localhost:5000/api/ads");
+        await LoadFooter("footer");
+
+        document.getElementById("ads-card").addEventListener("click", (e) => {
+          const card = e.target.closest(".ad-card");
+          if (card) {
+            const adId = card.getAttribute("data-ad-id");
+            window.location.href = `ad-detailed.html?id=${adId}`;
+          }
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (e.target.id == "logoutButton") {
+          LogOut();
+        }
+      });
+    </script>
+  </body>
+</html>
