@@ -409,3 +409,20 @@ body {
     height: 80px;
   }
 }
+/* For clickable ad cards */
+.ad-card {
+  cursor: pointer;
+  /* Your existing ad-card styles */
+}
+
+/* For action buttons */
+.ad-actions .action-btn {
+  cursor: pointer;
+  /* Your existing action button styles */
+}
+
+/* For status tabs */
+.status-tab {
+  cursor: pointer;
+  /* Your existing tab styles */
+}

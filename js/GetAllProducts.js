@@ -19,10 +19,8 @@ async function GetAllProductsForUser(url) {
 }
 
 function MakeProductCard(product) {
-  console.log(product.image_path);
   return `
     <div class="ad-card" data-ad-id="${product.id}">
-      <a href="ad-detailed.html/id=${product.id}" class="ad-card-link">
         <div class="ad-image">
           <img src="${product.image_path || "default-image.jpg"}" alt="${
     product.title
@@ -39,24 +37,26 @@ function MakeProductCard(product) {
             <div class="ad-date">${GetDateString(product.date)}</div>
           </div>
         </div>
-      </a>
     </div>
   `;
 }
 
 function MakeProductCardforUser(product) {
-  const statusClass = `status-${product.state_name.toLowerCase()}`;
+  // Convert state_name to lowercase and remove any whitespace
+  const state = product.state_name.toLowerCase().trim();
+  const statusClass = `status-${state}`;
+  
+  // Map state names to Turkish display values
+  let displayState = product.state_name;
+  if (state === "active") displayState = "Aktif";
+  else if (state === "pending") displayState = "Bekliyor";
+  else if (state === "sold") displayState = "Satıldı";
 
   return `
-    <div class="ad-card" data-ad-id="${
-      product.id
-    }" data-status="${product.state_name.toLowerCase()}">
-      <a href="ad-detailed.html?id=${product.id}" class="ad-card-link">
+    <div class="ad-card" data-ad-id="${product.id}" data-status="${state}">
         <div class="ad-image">
-          <img src="${product.image_path || "default-image.jpg"}" alt="${
-    product.title
-  }">
-          <div class="ad-status ${statusClass}">${product.state_name}</div>
+          <img src="${product.image_path || "default-image.jpg"}" alt="${product.title}">
+          <div class="ad-status ${statusClass}">${displayState}</div>
         </div>
         <div class="ad-details">
           <h3 class="ad-title">${product.title}</h3>
@@ -69,16 +69,11 @@ function MakeProductCardforUser(product) {
             <div class="ad-date">${GetDateString(product.date)}</div>
           </div>
         </div>
-      </a>
       <div class="ad-actions">
-        <div class="action-btn edit-btn" title="Düzenle" data-ad-id="${
-          product.id
-        }">
+        <div class="action-btn edit-btn" title="Düzenle" data-ad-id="${product.id}">
           <i class="fas fa-edit"></i>
         </div>
-        <div class="action-btn delete-btn" title="Sil" data-ad-id="${
-          product.id
-        }">
+        <div class="action-btn delete-btn" title="Sil" data-ad-id="${product.id}">
           <i class="fas fa-trash"></i>
         </div>
       </div>

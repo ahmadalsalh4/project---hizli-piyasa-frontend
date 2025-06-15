@@ -3,177 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad Details - Hızlı Piyasa</title>
-    <link rel="stylesheet" href="../css/ad-detailed.css">
+    <title>Ad Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        #ad-image {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .image-container {
+            text-align: center;
+        }
+        .image-error {
+            color: red;
+            padding: 10px;
+            border: 1px solid #ffcccc;
+            background: #fff0f0;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div id="header"></div>
-    </header>
+    <h1>Ad Details</h1>
+    <div id="ad-data"></div>
+    <div class="image-container">
+        <img id="ad-image" style="display: none;">
+        <div id="image-error" class="image-error" style="display: none;"></div>
+    </div>
 
-    <main class="ad-details-container">
-        <div class="ad-images">
-            <div class="main-image">
-                <img id="main-image" src="../images/placeholder-image.jpg" alt="Main product image">
-            </div>
-            <div class="thumbnail-container" id="thumbnails"></div>
-        </div>
-
-        <div class="ad-info">
-            <h1 id="ad-title">Product Title</h1>
-            <div class="price-container">
-                <span id="ad-price">₺0.00</span>
-                <span id="original-price" class="original-price"></span>
-            </div>
-            <div class="ad-meta">
-                <span id="ad-date">Posted: Today</span>
-                <span id="ad-views">Views: 0</span>
-                <span id="ad-location">Location: Unknown</span>
-            </div>
-            <div class="ad-description">
-                <h3>Description</h3>
-                <p id="ad-description-text">No description available.</p>
-            </div>
-            <div class="seller-info">
-                <h3>Seller Information</h3>
-                <div class="seller-details">
-                    <img id="seller-avatar" src="../images/default-avatar.jpg" alt="Seller avatar">
-                    <div>
-                        <h4 id="seller-name">Seller Name</h4>
-                        <p id="seller-rating">Rating: Not rated</p>
-                        <p id="seller-join-date">Member since: Unknown</p>
-                    </div>
-                </div>
-                <button id="contact-seller" class="btn-primary">Contact Seller</button>
-            </div>
-        </div>
-    </main>
-
-    <section class="similar-ads">
-        <h2>Similar Ads</h2>
-        <div class="ads-grid" id="similar-ads"></div>
-    </section>
-
-    <footer>
-        <div id="footer"></div>
-    </footer>
-
-    <script type="module">
-        import { LoadHeader, LoadFooter, UpdateProfileState } from "../js/util.js";
-        import { initCardInteractions } from "../js/cardInteractions.js";
-
-        document.addEventListener("DOMContentLoaded", async () => {
-            // Load common components
-            await LoadHeader("header");
-            await UpdateProfileState("header");
-            await LoadFooter("footer");
-            
-            // Initialize card interactions for similar ads
-            initCardInteractions();
-            
-            // Get ad ID from URL
+    <script>
+        async function loadAd() {
             const urlParams = new URLSearchParams(window.location.search);
             const adId = urlParams.get('id');
             
-            if (adId) {
-                // Fetch and display ad details
-                await loadAdDetails(adId);
-                // Load similar ads
-                await loadSimilarAds(adId);
-            } else {
-                console.error("No ad ID found in URL");
-                // Redirect to homepage or show error
-                window.location.href = "/index.html";
+            if (!adId) {
+                document.getElementById('ad-data').innerHTML = '<p>No ad ID specified</p>';
+                return;
             }
-        });
 
-        async function loadAdDetails(adId) {
             try {
                 const response = await fetch(`http://localhost:5000/api/ads/${adId}`);
                 if (!response.ok) throw new Error('Ad not found');
                 
                 const ad = await response.json();
                 
-                // Update the page with ad data
-                document.getElementById('ad-title').textContent = ad.title;
-                document.getElementById('ad-price').textContent = `₺${ad.price.toFixed(2)}`;
-                document.getElementById('ad-description-text').textContent = ad.description;
-                document.getElementById('ad-date').textContent = `Posted: ${new Date(ad.createdAt).toLocaleDateString()}`;
-                document.getElementById('ad-location').textContent = `Location: ${ad.location || 'Not specified'}`;
+                // Display raw data
+                document.getElementById('ad-data').innerHTML = `
+                    <pre>${JSON.stringify(ad, null, 2)}</pre>
+                `;
                 
-                // Handle images
-                const mainImage = document.getElementById('main-image');
-                const thumbnailsContainer = document.getElementById('thumbnails');
+                // Handle image display
+                const imgElement = document.getElementById('ad-image');
+                const errorElement = document.getElementById('image-error');
                 
-                if (ad.images && ad.images.length > 0) {
-                    mainImage.src = ad.images[0];
-                    thumbnailsContainer.innerHTML = '';
+                if (ad.image_path) {
+                    imgElement.src = ad.image_path;
+                    imgElement.alt = ad.title || 'Ad image';
+                    imgElement.style.display = 'block';
                     
-                    ad.images.forEach((img, index) => {
-                        const thumb = document.createElement('img');
-                        thumb.src = img;
-                        thumb.alt = `Thumbnail ${index + 1}`;
-                        thumb.classList.add('thumbnail');
-                        thumb.addEventListener('click', () => {
-                            mainImage.src = img;
-                        });
-                        thumbnailsContainer.appendChild(thumb);
-                    });
-                }
-                
-                // Handle seller info
-                const sellerResponse = await fetch(`http://localhost:5000/api/users/${ad.sellerId}`);
-                if (sellerResponse.ok) {
-                    const seller = await sellerResponse.json();
-                    document.getElementById('seller-name').textContent = seller.name || seller.username;
-                    document.getElementById('seller-avatar').src = seller.avatar || '../images/default-avatar.jpg';
-                    document.getElementById('seller-join-date').textContent = `Member since: ${new Date(seller.createdAt).toLocaleDateString()}`;
-                }
-                
-            } catch (error) {
-                console.error('Error loading ad details:', error);
-                // Show error message to user
-            }
-        }
-
-        async function loadSimilarAds(adId) {
-            try {
-                // This would ideally use the current ad's category to find similar ones
-                const response = await fetch(`http://localhost:5000/api/ads?limit=4&exclude=${adId}`);
-                if (!response.ok) throw new Error('Could not load similar ads');
-                
-                const similarAds = await response.json();
-                const container = document.getElementById('similar-ads');
-                
-                if (similarAds.length > 0) {
-                    container.innerHTML = similarAds.map(ad => `
-                        <div class="ad-card" data-ad-id="${ad.id}">
-                            <a href="/pages/ad-detailed.html?id=${ad.id}" class="ad-card-link">
-                                <img src="${ad.images?.[0] || '../images/placeholder-image.jpg'}" alt="${ad.title}">
-                                <div class="ad-info">
-                                    <h3>${ad.title}</h3>
-                                    <p class="price">₺${ad.price.toFixed(2)}</p>
-                                    <p class="location">${ad.location || 'Unknown location'}</p>
-                                </div>
-                            </a>
-                        </div>
-                    `).join('');
+                    imgElement.onload = function() {
+                        errorElement.style.display = 'none';
+                    };
+                    
+                    imgElement.onerror = function() {
+                        imgElement.style.display = 'none';
+                        errorElement.style.display = 'block';
+                        errorElement.textContent = `Failed to load image from: ${ad.image_path}`;
+                        
+                        // Try to fix common URL issues
+                        if (!ad.image_path.startsWith('http')) {
+                            errorElement.textContent += ` (Note: URL should start with http:// or https://)`;
+                        }
+                    };
                 } else {
-                    container.innerHTML = '<p>No similar ads found</p>';
+                    errorElement.style.display = 'block';
+                    errorElement.textContent = 'No image available for this ad';
                 }
             } catch (error) {
-                console.error('Error loading similar ads:', error);
-                document.getElementById('similar-ads').innerHTML = '<p>Could not load similar ads</p>';
+                document.getElementById('ad-data').innerHTML = `
+                    <p>Error loading ad: ${error.message}</p>
+                `;
             }
         }
 
-        // Contact seller button functionality
-        document.addEventListener('click', (e) => {
-            if (e.target.id === 'contact-seller') {
-                // Implement contact functionality
-                alert('Contact form would appear here');
-            }
-        });
+        // Load ad when page loads
+        loadAd();
     </script>
 </body>
 </html>
