@@ -166,7 +166,11 @@ header {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   color: white;
 }
 
@@ -270,7 +274,11 @@ header {
   display: block;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   position: absolute;
   bottom: -1px;
   left: 0;
@@ -396,30 +404,6 @@ header {
   color: var(--gray-color);
 }
 
-/* WhatsApp Button Styles */
-.btn-whatsapp {
-  background-color: #25D366;
-  color: white;
-  border: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-whatsapp:hover {
-  background-color: #128C7E;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(18, 140, 126, 0.3);
-}
-
-.fa-whatsapp {
-  font-size: 18px;
-}
 /* Status badges */
 .ad-status {
   position: absolute;
