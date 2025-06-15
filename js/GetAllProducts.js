@@ -19,6 +19,7 @@ async function GetAllProductsForUser(url) {
 }
 
 function MakeProductCard(product) {
+  const price = Number(product.price);
   return `
     <div class="ad-card" data-ad-id="${product.id}">
         <div class="ad-image">
@@ -33,7 +34,7 @@ function MakeProductCard(product) {
             ${product.city_name}
           </div>
           <div class="ad-price-container">
-            <div class="ad-price">${product.price.toLocaleString()} TL</div>
+            <div class="ad-price">${price.toLocaleString("de-DE")} TL</div>
             <div class="ad-date">${GetDateString(product.date)}</div>
           </div>
         </div>
@@ -42,10 +43,11 @@ function MakeProductCard(product) {
 }
 
 function MakeProductCardforUser(product) {
+  const price = Number(product.price);
   // Convert state_name to lowercase and remove any whitespace
   const state = product.state_name.toLowerCase().trim();
   const statusClass = `status-${state}`;
-  
+
   // Map state names to Turkish display values
   let displayState = product.state_name;
   if (state === "active") displayState = "Aktif";
@@ -55,7 +57,9 @@ function MakeProductCardforUser(product) {
   return `
     <div class="ad-card" data-ad-id="${product.id}" data-status="${state}">
         <div class="ad-image">
-          <img src="${product.image_path || "default-image.jpg"}" alt="${product.title}">
+          <img src="${product.image_path || "default-image.jpg"}" alt="${
+    product.title
+  }">
           <div class="ad-status ${statusClass}">${displayState}</div>
         </div>
         <div class="ad-details">
@@ -65,15 +69,19 @@ function MakeProductCardforUser(product) {
             ${product.city_name}
           </div>
           <div class="ad-price-container">
-            <div class="ad-price">${product.price.toLocaleString()} TL</div>
+            <div class="ad-price">${price.toLocaleString("de-DE")} TL</div>
             <div class="ad-date">${GetDateString(product.date)}</div>
           </div>
         </div>
       <div class="ad-actions">
-        <div class="action-btn edit-btn" title="Düzenle" data-ad-id="${product.id}">
+        <div class="action-btn edit-btn" title="Düzenle" data-ad-id="${
+          product.id
+        }">
           <i class="fas fa-edit"></i>
         </div>
-        <div class="action-btn delete-btn" title="Sil" data-ad-id="${product.id}">
+        <div class="action-btn delete-btn" title="Sil" data-ad-id="${
+          product.id
+        }">
           <i class="fas fa-trash"></i>
         </div>
       </div>

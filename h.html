@@ -1,0 +1,12 @@
+<script>
+  let x = 100000123;
+  console.log(x.toLocaleString());
+  let y = 0;
+
+  while (x >= 10000) {
+    y+=x%1000
+    y+="."
+    x/=1000
+  }
+  console.log(y)
+</script>

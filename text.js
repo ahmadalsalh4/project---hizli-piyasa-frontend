@@ -1,3 +1,2 @@
-// ara wp  buttun
-// postad postuser js
-//  icon top
+// ara wp buttun
+// icon top
