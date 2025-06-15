@@ -13,56 +13,53 @@
     <div class="container">
       <div class="product-container">
         <div class="product-gallery">
-          <img
-            src=""
-            alt="iPhone 13 Pro"
-            class="main-image"
-            id="mainImage"
-          />
+          <img src="" alt="Ürün Resmi" class="main-image" id="mainImage" />
         </div>
 
         <div class="product-info">
           <div class="product-header">
-            <h1 class="product-title">???</h1>
+            <h1 class="product-title" id="productTitle">Yükleniyor...</h1>
             <div class="product-location">
               <i class="fas fa-map-marker-alt"></i>
-              ???
+              <span id="productLocation">Yükleniyor...</span>
             </div>
-            <div class="product-price">???</div>
+            <div class="product-price" id="productPrice">Yükleniyor...</div>
 
             <div class="product-meta">
-              <span><i class="far fa-calendar-alt"></i>???</span>
+              <span
+                ><i class="far fa-calendar-alt"></i
+                ><span id="productDate">Yükleniyor...</span></span
+              >
             </div>
 
             <div class="product-actions">
-              <button class="btn btn-primary">
+              <button class="btn btn-primary" id="callButton">
                 <i class="fas fa-phone-alt"></i> Ara
-              </button>
-              <button class="btn btn-outline">
-                <i class="far fa-envelope"></i> Mesaj
               </button>
             </div>
           </div>
 
           <div class="seller-card">
-            <img
-              src=""
-              alt="Seller"
-              class="seller-avatar"
-            />
-            <h3 class="seller-name">???</h3>
+            <img src="" alt="Seller" class="seller-avatar" id="sellerAvatar" />
+            <h3 class="seller-name" id="sellerName">Yükleniyor...</h3>
             <div class="seller-stats">
               <div>
-                <span class="stat-value">??? ilan</span>
+                <span class="stat-value"
+                  ><span id="sellerAdsCount">0</span> ilan</span
+                >
               </div>
               <div>
-                <span class="stat-value">0552 545 53 67 <br> telefon numarası</span>
+                <span class="stat-value" id="sellerPhone"
+                  >0552 545 53 67 <br />
+                  telefon numarası</span
+                >
               </div>
             </div>
             <a
               href="user-profile.html"
               class="btn btn-outline"
               style="width: 100%"
+              id="sellerProfileLink"
             >
               <i class="fas fa-user"></i> Profili Görüntüle
             </a>
@@ -72,8 +69,8 @@
 
       <div class="product-details">
         <h2 class="section-title">Ürün Açıklaması</h2>
-        <div class="product-description">
-          ???
+        <div class="product-description" id="productDescription">
+          Yükleniyor...
         </div>
       </div>
 
@@ -92,8 +89,64 @@
       document.addEventListener("DOMContentLoaded", async () => {
         await LoadHeader("header");
         await UpdateProfileState("header");
-        await loadProductsTo("ads-card", "http://localhost:5000/api/ads");
         await LoadFooter("footer");
+
+        // Get ad ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const adId = urlParams.get("id");
+
+        try {
+          // Fetch ad details
+          const response = await fetch(`http://localhost:5000/api/ads/${adId}`);
+          if (!response.ok) window.location.href = "./404.html";
+          const adData = await response.json();
+          const price = Number(adData.price);
+          // Populate ad details
+          document.getElementById("productTitle").textContent = adData.title;
+          document.getElementById("productLocation").textContent =
+            adData.city_name;
+
+          document.getElementById("productPrice").textContent =
+            price.toLocaleString("de-DE");
+          document.getElementById("productDate").textContent = new Date(
+            adData.date
+          ).toLocaleDateString("tr-TR");
+          document.getElementById("productDescription").textContent =
+            adData.description;
+          document.getElementById("mainImage").src = adData.image_path;
+          document.getElementById("mainImage").alt = adData.title;
+
+          await loadProductsTo(
+            "ads-card",
+            `http://localhost:5000/api/ads?category=${adData.category_name}`
+          );
+
+          // Fetch user details (assuming there's an endpoint for this)
+          try {
+            const userResponse = await fetch(
+              `http://localhost:5000/api/ads/user/${adData.user_id}`
+            );
+            const data = await userResponse.json();
+
+            document.getElementById("sellerName").textContent =
+              data.userdata.name + " " + data.userdata.surname || "Satıcı";
+            document.getElementById("sellerPhone").textContent =
+              data.userdata.phone_number || "Telefon numarası yok";
+            document.getElementById("sellerAvatar").src =
+              data.userdata.profile_image_path;
+            document.getElementById(
+              "sellerProfileLink"
+            ).href = `seller-profile.html?id=${adData.user_id}`;
+            document.getElementById("sellerAdsCount").textContent =
+              data.rowCount;
+          } catch (userError) {
+            console.error("Kullanıcı bilgileri yüklenirken hata:", userError);
+          }
+        } catch (error) {
+          console.error("İlan bilgileri yüklenirken hata:", error);
+          document.getElementById("productTitle").textContent =
+            "İlan yüklenirken hata oluştu";
+        }
 
         document.getElementById("ads-card").addEventListener("click", (e) => {
           const card = e.target.closest(".ad-card");
@@ -102,12 +155,17 @@
             window.location.href = `ad-detailed.html?id=${adId}`;
           }
         });
-      });
 
-      document.addEventListener("click", (e) => {
-        if (e.target.id == "logoutButton") {
-          LogOut();
-        }
+        const callButton = document.getElementById("callButton");
+        callButton.addEventListener("click", () => {
+          const phone =
+            document.getElementById("sellerPhone")?.textContent?.trim() || "";
+          if (phone) {
+            window.location.href = `tel:${phone.replace(/\D/g, "")}`;
+          } else {
+            alert("Satıcı telefon numarası bulunamadı");
+          }
+        });
       });
     </script>
   </body>

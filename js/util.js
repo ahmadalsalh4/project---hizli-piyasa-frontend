@@ -125,31 +125,31 @@ export async function loadcitiesNamesTo(containerId) {
 }
 
 export async function LoadHeader(id) {
-  const response = await fetch("../partials/header.html");
+  const response = await fetch("./partials/header.html");
   const html = await response.text();
   document.getElementById(id).innerHTML = html;
 }
 
 export async function LoadSearch(id) {
-  const response = await fetch("../partials/search.html");
+  const response = await fetch("./partials/search.html");
   const html = await response.text();
   document.getElementById(id).innerHTML = html;
 }
 
 export async function LoadBanner(id) {
-  const response = await fetch("../partials/banner.html");
+  const response = await fetch("./partials/banner.html");
   const html = await response.text();
   document.getElementById(id).innerHTML = html;
 }
 
 export async function LoadCategories(id) {
-  const response = await fetch("../partials/categories.html");
+  const response = await fetch("./partials/categories.html");
   const html = await response.text();
   document.getElementById(id).innerHTML = html;
 }
 
 export async function LoadFooter(id) {
-  const response = await fetch("../partials/footer.html");
+  const response = await fetch("./partials/footer.html");
   const html = await response.text();
   document.getElementById(id).innerHTML = html;
 }
