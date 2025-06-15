@@ -19,9 +19,10 @@ async function GetAllProductsForUser(url) {
 }
 
 function MakeProductCard(product) {
+  console.log(product.image_path);
   return `
     <div class="ad-card" data-ad-id="${product.id}">
-      <a href="ad-detailed.html?id=${product.id}" class="ad-card-link">
+      <a href="ad-detailed.html/id=${product.id}" class="ad-card-link">
         <div class="ad-image">
           <img src="${product.image_path || "default-image.jpg"}" alt="${
     product.title

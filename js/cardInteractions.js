@@ -27,7 +27,9 @@ function handleEditAction(e) {
   e.stopPropagation();
   const adId = getAdIdFromElement(e.target, ".edit-btn");
   if (adId) {
-    navigateTo(`/pages/edit-ad.html?id=${adId}`);
+    window.location.href = `/pages/edit-ad.html?id=${adId}`;
+  } else {
+    console.error("No ad ID found for edit action");
   }
 }
 
@@ -47,20 +49,17 @@ function handleCardClick(e, cardLink) {
   e.preventDefault();
   const adId = cardLink.href.split('/').pop() || 
                cardLink.closest('.ad-card')?.dataset?.adId;
+  
   if (adId) {
-    navigateTo(`/pages/ad-detailed.html?id=${adId}`);
+    window.location.href = `/pages/ad-detailed.html?id=${adId}`;
+  } else {
+    console.error("No ad ID found for card click");
   }
 }
 
 function getAdIdFromElement(element, selector) {
   const el = element.closest(selector);
   return el?.dataset?.adId || el?.getAttribute('data-ad-id');
-}
-
-function navigateTo(url) {
-  // Ensure proper path formatting
-  const normalizedUrl = url.startsWith('/') ? url : `/${url}`;
-  window.location.href = normalizedUrl;
 }
 
 async function deleteAd(adId) {

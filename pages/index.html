@@ -35,10 +35,8 @@
       } from "../js/util.js";
       import { loadProductsTo } from "../js/GetAllProducts.js";
       import { UpdateProfileState } from "../js/header.js";
-      import { initCardInteractions } from "../js/cardInteractions.js";
-
+      
       document.addEventListener("DOMContentLoaded", async () => {
-        initCardInteractions();
         await LoadHeader("header");
         await UpdateProfileState("header");
         await LoadSearch("search");
