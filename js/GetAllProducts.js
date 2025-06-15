@@ -101,10 +101,80 @@ export async function loadProductsTo(containerId, url) {
   container.innerHTML = products.map(MakeProductCard).join("");
 }
 
+function setupDeleteButtons(container) {
+  container.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const adId = btn.dataset.adId;
+
+      if (confirm("Bu ilanı silmek istediğinize emin misiniz?")) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        btn.disabled = true;
+
+        try {
+          await deleteAd(adId);
+          // Remove the card from UI
+          btn.closest(".ad-card").remove();
+          // Update the count
+          const sectionTitle = document.querySelector(".section-title");
+          const currentCount = parseInt(
+            sectionTitle.textContent.match(/\d+/)[0]
+          );
+          sectionTitle.textContent = sectionTitle.textContent.replace(
+            `(${currentCount})`,
+            `(${currentCount - 1})`
+          );
+        } catch (error) {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          alert("İlan silinirken bir hata oluştu: " + error.message);
+        }
+      }
+    });
+  });
+}
+
+// js/DeleteAd.js
+export async function deleteAd(adId) {
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/me/ads/${adId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting ad:", error);
+    throw error;
+  }
+}
+
 export async function loadProductsToUser(containerId, url) {
   const products = await GetAllProductsForUser(url);
   if (products.rowCount === 0) return 0;
   const container = document.getElementById(containerId);
   container.innerHTML = products.rows.map(MakeProductCardforUser).join("");
+
+  container.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent the card click event from firing
+      const adId = btn.dataset.adId;
+      window.location.href = `./edit-ad.html?id=${adId}`;
+    });
+  });
+  setupDeleteButtons(container);
   return products.rowCount;
 }
