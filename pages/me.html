@@ -61,80 +61,91 @@
     </footer>
 
     <script type="module">
-  import { LoadHeader, LogOut, LoadFooter } from "../js/util.js";
-  import { loadProductsTo, loadProductsToUser } from "../js/GetAllProducts.js";
-  import { UpdateProfileState } from "../js/header.js";
-  import { UpdateUserdata } from "../js/UserDate.js";
+      import { LoadHeader, LogOut, LoadFooter } from "../js/util.js";
+      import {
+        loadProductsTo,
+        loadProductsToUser,
+      } from "../js/GetAllProducts.js";
+      import { UpdateProfileState } from "../js/header.js";
+      import { UpdateUserdata } from "../js/UserDate.js";
 
-  function filterAdsByStatus(status) {
-    const adCards = document.querySelectorAll(".ad-card");
-    
-    adCards.forEach((card) => {
-      const cardStatus = card.getAttribute("data-status");
-      if (status === "all" || cardStatus === status) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
+      function filterAdsByStatus(status) {
+        const adCards = document.querySelectorAll(".ad-card");
+
+        adCards.forEach((card) => {
+          const cardStatus = card.getAttribute("data-status");
+          if (status === "all" || cardStatus === status) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
       }
-    });
-  }
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    await LoadHeader("header");
-    await UpdateUserdata();
-    await UpdateProfileState("header");
-    const adCount = await loadProductsToUser(
-      "ads-card",
-      "http://localhost:5000/api/me/ads"
-    );
+      document.addEventListener("DOMContentLoaded", async () => {
+        await LoadHeader("header");
+        await UpdateUserdata();
+        await UpdateProfileState("header");
+        const adCount = await loadProductsToUser(
+          "ads-card",
+          "http://localhost:5000/api/me/ads"
+        );
 
-    document.querySelector(".section-title").textContent = `İlanlarım (${adCount})`;
+        document.querySelector(
+          ".section-title"
+        ).textContent = `İlanlarım (${adCount})`;
 
-    await LoadFooter("footer");
+        await LoadFooter("footer");
 
-    // Initialize tab functionality
-    const tabs = document.querySelectorAll(".status-tab");
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        // Update active tab
-        tabs.forEach((t) => t.classList.remove("active"));
-        tab.classList.add("active");
+        // Initialize tab functionality
+        const tabs = document.querySelectorAll(".status-tab");
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            // Update active tab
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
 
-        // Filter ads
-        const status = tab.dataset.status;
-        filterAdsByStatus(status);
+            // Filter ads
+            const status = tab.dataset.status;
+            filterAdsByStatus(status);
 
-        // Update count for the filtered tab
-        if (status === "all") {
-          document.querySelector(".section-title").textContent = `İlanlarım (${adCount})`;
-        } else {
-          const visibleCount = document.querySelectorAll(`.ad-card[data-status="${status}"]`).length;
-          document.querySelector(".section-title").textContent = `İlanlarım (${visibleCount})`;
+            // Update count for the filtered tab
+            if (status === "all") {
+              document.querySelector(
+                ".section-title"
+              ).textContent = `İlanlarım (${adCount})`;
+            } else {
+              const visibleCount = document.querySelectorAll(
+                `.ad-card[data-status="${status}"]`
+              ).length;
+              document.querySelector(
+                ".section-title"
+              ).textContent = `İlanlarım (${visibleCount})`;
+            }
+          });
+        });
+      });
+
+      // Add click event delegation for ad cards
+      document.getElementById("ads-card").addEventListener("click", (e) => {
+        // Ignore clicks on action buttons
+        if (e.target.closest(".ad-actions")) {
+          return;
+        }
+
+        // Find the closest ad-card element
+        const card = e.target.closest(".ad-card");
+        if (card) {
+          const adId = card.getAttribute("data-ad-id");
+          window.location.href = `ad-detailed.html?id=${adId}`;
         }
       });
-    });
-  });
 
-  // Add click event delegation for ad cards
-  document.getElementById("ads-card").addEventListener("click", (e) => {
-    // Ignore clicks on action buttons
-    if (e.target.closest(".ad-actions")) {
-      return;
-    }
-    
-    // Find the closest ad-card element
-    const card = e.target.closest(".ad-card");
-    if (card) {
-      const adId = card.getAttribute("data-ad-id");
-      window.location.href = `ad-detailed.html?id=${adId}`;
-    }
-  });
-
-  document.addEventListener("click", (e) => {
-    if (e.target.id == "logout-btn" || e.target.id == "logoutButton") {
-      LogOut();
-    }
-  });
-</script>
+      document.addEventListener("click", (e) => {
+        if (e.target.id == "logout-btn" || e.target.id == "logoutButton") {
+          LogOut();
+        }
+      });
+    </script>
   </body>
 </html>
