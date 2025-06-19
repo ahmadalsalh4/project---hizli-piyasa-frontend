@@ -148,7 +148,7 @@
         try {
           // Load ad data
           const response = await fetch(
-            `http://localhost:5000/api/ads/${adId}`,
+            `http://localhost:5000/api/me/ads/${adId}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
