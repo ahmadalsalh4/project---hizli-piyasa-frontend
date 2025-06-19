@@ -153,54 +153,37 @@
         const keyword = urlParams.get("search") || "";
 
         const categorySelect = document.getElementById("ad-category");
-        let category = "";
-        if (categorySelect && categorySelect.selectedIndex >= 0) {
-          const selectedOption =
-            categorySelect.options[categorySelect.selectedIndex];
-          if (selectedOption.text !== "Kategori seçin") {
-            category = selectedOption.text;
-          }
-        }
+        const category =
+          categorySelect?.value === "Kategori seçin"
+            ? ""
+            : categorySelect?.value || "";
 
         const citySelect = document.getElementById("ad-city");
-        let city = "";
-        if (citySelect && citySelect.selectedIndex >= 0) {
-          const selectedOption = citySelect.options[citySelect.selectedIndex];
-          if (selectedOption.text !== "Şehir seçin") {
-            city = selectedOption.text;
-          }
-        }
+        const city =
+          citySelect?.value === "Şehir seçin" ? "" : citySelect?.value || "";
 
         const minPrice = document.getElementById("minPrice")?.value || "";
         const maxPrice = document.getElementById("maxPrice")?.value || "";
         const dateFilter = document.getElementById("dateFilter")?.value || "";
-        const startDate = getStartDate(dateFilter);
-        function getStartDate(dateFilter) {
-          const now = new Date();
 
-          switch (dateFilter) {
-            case "today":
-              return new Date(
-                now.getTime() - 24 * 60 * 60 * 1000
-              ).toISOString(); // Exactly 24 hours ago
-            case "3days":
-              return new Date(
-                now.getTime() - 3 * 24 * 60 * 60 * 1000
-              ).toISOString(); // Exactly 72 hours ago
-            case "week":
-              return new Date(
-                now.getTime() - 7 * 24 * 60 * 60 * 1000
-              ).toISOString(); // Exactly 7 days ago
-            case "month":
-              const oneMonthAgo = new Date(now);
-              oneMonthAgo.setMonth(now.getMonth() - 1);
-              return oneMonthAgo.toISOString();
-            default:
-              return null;
-          }
+        let startDate = "";
+        if (dateFilter === "today") {
+          startDate = new Date(Date.now() - 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+        } else if (dateFilter === "3days") {
+          startDate = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+        } else if (dateFilter === "week") {
+          startDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+        } else if (dateFilter === "month") {
+          startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
         }
-
-        // In your buildSearchUrl function:
 
         const sortOptions =
           document.getElementById("sortOptions")?.value || "newest";
@@ -244,7 +227,7 @@
         if (city) url += `&city=${city}`;
         if (startDate) url += `&startDate=${startDate}`;
         if (sortBy) url += `&sortBy=${sortBy}&sortOrder=${sortOrder}`;
-        console.log(url);
+
         return url;
       }
 
