@@ -170,16 +170,14 @@
         // Handle profile image change
         document
           .getElementById("avatarFile")
-          .addEventListener("change", async function (e) {
+          .addEventListener("change", function (e) {
             const file = e.target.files[0];
             if (file) {
-              try {
-                const base64Image = await imageToBase64(file);
-                document.getElementById("avatarPreview").src = base64Image;
-              } catch (error) {
-                console.error("Error converting image:", error);
-                alert("Resim yüklenirken hata oluştu");
-              }
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                document.getElementById("avatarPreview").src = e.target.result;
+              };
+              reader.readAsDataURL(file);
             }
           });
 
@@ -286,7 +284,7 @@
                   alert("Hesabınız başarıyla silindi");
                   // Clear token and redirect to login
                   localStorage.removeItem("jwtToken");
-                  window.location.href = "/login";
+                  window.location.href = "./login.html";
                 } else {
                   const error = await response.json();
                   alert(
