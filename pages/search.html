@@ -148,10 +148,35 @@
       import { loadProductsToSerch } from "../js/GetAllProducts.js";
       import { UpdateProfileState } from "../js/header.js";
 
+      function getStartDate(dateFilter) {
+        const now = new Date();
+
+        switch (dateFilter) {
+          case "today":
+            return new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();
+          case "3days":
+            return new Date(
+              now.getTime() - 3 * 24 * 60 * 60 * 1000
+            ).toISOString();
+          case "week":
+            return new Date(
+              now.getTime() - 7 * 24 * 60 * 60 * 1000
+            ).toISOString();
+          case "month":
+            const oneMonthAgo = new Date(now);
+            oneMonthAgo.setMonth(now.getMonth() - 1);
+            return oneMonthAgo.toISOString();
+          default:
+            return null;
+        }
+      }
+
       function buildSearchUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const keyword = urlParams.get("search") || "";
+        const urlCategory = urlParams.get("category") || "";
 
+        // Get selected category from dropdown or URL parameter
         const categorySelect = document.getElementById("ad-category");
         let category = "";
         if (categorySelect && categorySelect.selectedIndex >= 0) {
@@ -160,6 +185,10 @@
           if (selectedOption.text !== "Kategori seçin") {
             category = selectedOption.text;
           }
+        }
+        // Prefer URL category if present (for direct links from main page)
+        if (urlCategory && !category) {
+          category = urlCategory;
         }
 
         const citySelect = document.getElementById("ad-city");
@@ -175,32 +204,6 @@
         const maxPrice = document.getElementById("maxPrice")?.value || "";
         const dateFilter = document.getElementById("dateFilter")?.value || "";
         const startDate = getStartDate(dateFilter);
-        function getStartDate(dateFilter) {
-          const now = new Date();
-
-          switch (dateFilter) {
-            case "today":
-              return new Date(
-                now.getTime() - 24 * 60 * 60 * 1000
-              ).toISOString(); // Exactly 24 hours ago
-            case "3days":
-              return new Date(
-                now.getTime() - 3 * 24 * 60 * 60 * 1000
-              ).toISOString(); // Exactly 72 hours ago
-            case "week":
-              return new Date(
-                now.getTime() - 7 * 24 * 60 * 60 * 1000
-              ).toISOString(); // Exactly 7 days ago
-            case "month":
-              const oneMonthAgo = new Date(now);
-              oneMonthAgo.setMonth(now.getMonth() - 1);
-              return oneMonthAgo.toISOString();
-            default:
-              return null;
-          }
-        }
-
-        // In your buildSearchUrl function:
 
         const sortOptions =
           document.getElementById("sortOptions")?.value || "newest";
@@ -244,46 +247,46 @@
         if (city) url += `&city=${city}`;
         if (startDate) url += `&startDate=${startDate}`;
         if (sortBy) url += `&sortBy=${sortBy}&sortOrder=${sortOrder}`;
-        console.log(url);
+
         return url;
       }
 
       function showNoResultsMessage(isFiltered) {
         const adsCard = document.getElementById("ads-card");
         adsCard.innerHTML = `
-                <div class="no-results-container">
-                    <div class="no-results-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
-                    </div>
-                    <h3 class="no-results-title">
-                        ${
-                          isFiltered
-                            ? "Filtrelerinizle eşleşen ilan bulunamadı"
-                            : "Aramanızla eşleşen ilan bulunamadı"
-                        }
-                    </h3>
-                    <p class="no-results-message">
-                        ${
-                          isFiltered
-                            ? "Filtreleri genişleterek tekrar deneyebilirsiniz."
-                            : "Farklı bir arama terimi deneyebilirsiniz."
-                        }
-                    </p>
-                    ${
-                      isFiltered
-                        ? `
-                    <button id="resetFilters" class="reset-filters-btn">
-                        Filtreleri Sıfırla
-                    </button>
-                    `
-                        : ""
-                    }
-                </div>
-            `;
+      <div class="no-results-container">
+        <div class="no-results-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h3 class="no-results-title">
+          ${
+            isFiltered
+              ? "Filtrelerinizle eşleşen ilan bulunamadı"
+              : "Aramanızla eşleşen ilan bulunamadı"
+          }
+        </h3>
+        <p class="no-results-message">
+          ${
+            isFiltered
+              ? "Filtreleri genişleterek tekrar deneyebilirsiniz."
+              : "Farklı bir arama terimi deneyebilirsiniz."
+          }
+        </p>
+        ${
+          isFiltered
+            ? `
+          <button id="resetFilters" class="reset-filters-btn">
+            Filtreleri Sıfırla
+          </button>
+        `
+            : ""
+        }
+      </div>
+    `;
 
         if (isFiltered) {
           document
@@ -296,9 +299,15 @@
               document.getElementById("dateFilter").value = "";
               document.getElementById("sortOptions").value = "newest";
 
+              const urlParams = new URLSearchParams(window.location.search);
               const initialUrl = `http://localhost:5000/api/ads?search=${encodeURIComponent(
-                new URLSearchParams(window.location.search).get("search") || ""
-              )}`;
+                urlParams.get("search") || ""
+              )}${
+                urlParams.get("category")
+                  ? `&category=${urlParams.get("category")}`
+                  : ""
+              }`;
+
               const adcount = await loadProductsToSerch("ads-card", initialUrl);
               updateAdCount(adcount, false);
             });
@@ -315,6 +324,24 @@
         }
       }
 
+      function preselectCategoryFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get("category");
+
+        if (category) {
+          const categorySelect = document.getElementById("ad-category");
+          if (categorySelect) {
+            // Find the option that matches the category
+            for (let i = 0; i < categorySelect.options.length; i++) {
+              if (categorySelect.options[i].text === category) {
+                categorySelect.selectedIndex = i;
+                break;
+              }
+            }
+          }
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", async () => {
         await LoadHeader("header");
         await UpdateProfileState("header");
@@ -323,9 +350,11 @@
         await loadCategoryNamesTo("category-filter-container");
         await loadcitiesNamesTo("city-filter-container");
 
-        const initialUrl = `http://localhost:5000/api/ads?search=${encodeURIComponent(
-          new URLSearchParams(window.location.search).get("search") || ""
-        )}`;
+        // Preselect category from URL if present
+        preselectCategoryFromUrl();
+
+        // Build initial URL including any category from URL parameters
+        const initialUrl = buildSearchUrl();
         const adcount = await loadProductsToSerch("ads-card", initialUrl);
         updateAdCount(adcount, false);
 
