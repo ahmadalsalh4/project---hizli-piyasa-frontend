@@ -180,9 +180,9 @@
 
           alert("başarli, yönlendirilyorsunuz...");
           localStorage.setItem("authToken", result.token);
-          window.location.href = "./me";
+          window.location.href = "./me.html";
         } catch (error) {
-          alert(`Hata mesajı : ${error.message}`);
+          alert(error);
         }
       });
   </script>
