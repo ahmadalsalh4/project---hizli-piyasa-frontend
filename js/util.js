@@ -24,7 +24,7 @@ export async function loadCategoryNamesTo(containerId) {
   <option >Kategori seçin</option>
   <option value="1">elektronik</option>
   <option value="2">giyim</option>
-  <option value="3">emlak</option>
+  <option value="3">ev</option>
   <option value="4">arac</option>
   <option value="5">ders</option>
   <option value="6">spor</option>
