@@ -57,10 +57,12 @@
   gap: 20px;
 }
 
+/* Add this to your existing CSS */
 .profile {
-  position: relative;
-  display: flex;
-  align-items: center;
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  position: relative; /* Required for dropdown positioning */
 }
 
 .profile-pic2 {
@@ -69,10 +71,11 @@
   border-radius: 50%;
   background-color: #4361ee;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; /* For centering the initials/icon */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
   font-weight: bold;
+  cursor: pointer; /* Optional: shows it's clickable */
 }
 
 .dropdown {

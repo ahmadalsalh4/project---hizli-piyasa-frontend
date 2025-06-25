@@ -153,19 +153,21 @@
 
         switch (dateFilter) {
           case "today":
-            return new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();
+            return new Date(now.getTime() - 24 * 60 * 60 * 1000)
+              .toISOString()
+              .replace(/:\d{2}\.\d{3}Z$/, "");
           case "3days":
-            return new Date(
-              now.getTime() - 3 * 24 * 60 * 60 * 1000
-            ).toISOString();
+            return new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .replace(/:\d{2}\.\d{3}Z$/, "");
           case "week":
-            return new Date(
-              now.getTime() - 7 * 24 * 60 * 60 * 1000
-            ).toISOString();
+            return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .replace(/:\d{2}\.\d{3}Z$/, "");
           case "month":
             const oneMonthAgo = new Date(now);
             oneMonthAgo.setMonth(now.getMonth() - 1);
-            return oneMonthAgo.toISOString();
+            return oneMonthAgo.toISOString().replace(/:\d{2}\.\d{3}Z$/, "");
           default:
             return null;
         }
@@ -204,6 +206,7 @@
         const maxPrice = document.getElementById("maxPrice")?.value || "";
         const dateFilter = document.getElementById("dateFilter")?.value || "";
         const startDate = getStartDate(dateFilter);
+        console.log(startDate);
 
         const sortOptions =
           document.getElementById("sortOptions")?.value || "newest";
