@@ -11,7 +11,7 @@ export function CalcDayDiffInDays(dateToCalc) {
 export async function imageToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(",")[1]); // Remove data URL prefix
+    reader.onload = () => resolve(reader.result.split(",")[1]);
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });

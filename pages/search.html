@@ -178,7 +178,6 @@
         const keyword = urlParams.get("search") || "";
         const urlCategory = urlParams.get("category") || "";
 
-        // Get selected category from dropdown or URL parameter
         const categorySelect = document.getElementById("ad-category");
         let category = "";
         if (categorySelect && categorySelect.selectedIndex >= 0) {
@@ -188,7 +187,6 @@
             category = selectedOption.text;
           }
         }
-        // Prefer URL category if present (for direct links from main page)
         if (urlCategory && !category) {
           category = urlCategory;
         }
