@@ -45,11 +45,11 @@ function MakeProductCard(product) {
 
 function MakeProductCardforUser(product) {
   const price = Number(product.price);
-  // Convert state_name to lowercase and remove any whitespace
+
   const state = product.state_name.toLowerCase().trim();
   const statusClass = `status-${state}`;
 
-  // Map state names to Turkish display values
+
   let displayState = product.state_name;
   if (state === "active") displayState = "Aktif";
   else if (state === "pending") displayState = "Bekliyor";
@@ -133,9 +133,9 @@ function setupDeleteButtons(container) {
 
         try {
           await deleteAd(adId);
-          // Remove the card from UI
+
           btn.closest(".ad-card").remove();
-          // Update the count
+
           const sectionTitle = document.querySelector(".section-title");
           const currentCount = parseInt(
             sectionTitle.textContent.match(/\d+/)[0]
@@ -154,7 +154,7 @@ function setupDeleteButtons(container) {
   });
 }
 
-// js/DeleteAd.js
+
 export async function deleteAd(adId) {
   const token = localStorage.getItem("authToken");
   if (!token) {
@@ -189,7 +189,7 @@ export async function loadProductsToUser(containerId, url) {
 
   container.querySelectorAll(".edit-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      e.stopPropagation(); // Prevent the card click event from firing
+      e.stopPropagation();
       const adId = btn.dataset.adId;
       window.location.href = `./edit-ad.html?id=${adId}`;
     });

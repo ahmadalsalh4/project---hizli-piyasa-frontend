@@ -142,7 +142,7 @@ export async function LoadSearch(id) {
       const searchInput = searchForm.querySelector('input[name="search"]');
       const keyword = searchInput.value.trim();
       if (keyword) {
-        // Navigate to search page with the query parameter
+
         window.location.href = `search.html?search=${encodeURIComponent(
           keyword
         )}`;

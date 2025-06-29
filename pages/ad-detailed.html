@@ -93,17 +93,15 @@
         await UpdateProfileState("header");
         await LoadFooter("footer");
 
-        // Get ad ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const adId = urlParams.get("id");
 
         try {
-          // Fetch ad details
           const response = await fetch(`http://localhost:5000/api/ads/${adId}`);
           if (!response.ok) window.location.href = "./404.html";
           const adData = await response.json();
           const price = Number(adData.price);
-          // Populate ad details
+
           document.getElementById("productTitle").textContent = adData.title;
           document.getElementById("productLocation").textContent =
             adData.city_name;
@@ -123,7 +121,6 @@
             `http://localhost:5000/api/ads?category=${adData.category_name}`
           );
 
-          // Fetch user details (assuming there's an endpoint for this)
           try {
             const userResponse = await fetch(
               `http://localhost:5000/api/ads/user/${adData.user_id}`
@@ -169,7 +166,6 @@
           }
         });
 
-        // Create zoom modal elements
         const zoomModal = document.createElement("div");
         zoomModal.className = "image-zoom-modal";
         const zoomedImg = document.createElement("img");
@@ -177,7 +173,6 @@
         zoomModal.appendChild(zoomedImg);
         document.body.appendChild(zoomModal);
 
-        // Handle click on product image
         const zoomTrigger = document.getElementById("zoomTrigger");
         const mainImage = document.getElementById("mainImage");
 
@@ -190,12 +185,10 @@
           });
         }
 
-        // Close modal when clicked
         zoomModal.addEventListener("click", () => {
           zoomModal.style.display = "none";
         });
 
-        // Close modal with ESC key
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape" && zoomModal.style.display === "block") {
             zoomModal.style.display = "none";

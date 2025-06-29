@@ -129,14 +129,12 @@
       } from "../js/util.js";
 
       document.addEventListener("DOMContentLoaded", async () => {
-        // Check if user is logged in
         const token = localStorage.getItem("authToken");
         if (!token) {
           window.location.href = "./login.html";
           return;
         }
 
-        // Get ad ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const adId = urlParams.get("id");
         if (!adId) {
@@ -146,7 +144,6 @@
         }
 
         try {
-          // Load ad data
           const response = await fetch(
             `http://localhost:5000/api/me/ads/${adId}`,
             {
@@ -210,7 +207,6 @@
             }
           });
 
-          // Handle drag and drop for image
           uploadArea.addEventListener("click", () => imageInput.click());
 
           uploadArea.addEventListener("dragover", (e) => {
